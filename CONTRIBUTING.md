@@ -3,7 +3,7 @@
 __...On github make a fork of this repo...__
 
 git clone https://github.com/YOURUSERNAME/in-chat-nito.git          
-git remote add upstream https://github.com/Gutierrezjdr/in-chat-nito.git     
+git remote add upstream https://github.com/in-chat-nito/in-chat-nito.git     
    
 `origin` should be tracking your fork.
 `upstream` should be tracking original repository. 
