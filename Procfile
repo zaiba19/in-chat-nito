@@ -1,0 +1,1 @@
+web: concurrently  "PORT=3001 ./bin/www" "cd client && npm start" 
