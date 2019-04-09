@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-export NODE_PATH=/mnt/c/Users/Gutie/Documents/WebDev/in-chat-nito/name/lib/node_modules
-export NPM_CONFIG_PREFIX=/mnt/c/Users/Gutie/Documents/WebDev/in-chat-nito/name
-export npm_config_prefix=/mnt/c/Users/Gutie/Documents/WebDev/in-chat-nito/name
-exec name/bin/node "$@"
