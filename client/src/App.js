@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
+import './SignUp.css'
 import Login from "./components/Login"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import SignUp from "./components/SignUp"
 
 
 
@@ -38,12 +40,15 @@ logOut = (e) => {
     if(this.state.token === undefined)
       return (
          <div className="wrapper">
+         <center><SignUp getUsername={this.getUsername}/></center>
         <Login getUsername={this.getUsername}/>
         </div>
+
+
         );
     else
       return (
-    <div>
+      <div>
           <Logout logOut={this.logOut}/>
           <ClassList username={this.state.name} token={this.state.token}/>
       </div>
