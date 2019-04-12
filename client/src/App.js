@@ -5,6 +5,7 @@ import Login from "./components/Login"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
 import SignUp from "./components/SignUp"
+import socketIOClient from 'socket.io-client'
 
 
 
