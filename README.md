@@ -12,4 +12,4 @@ In another terminal go to _client_ folder and run `npm start`
 
 You should be able to access the front-end in `http://localhost:3000`
 
-I added user info on the backend to test and it can be accessed at `http://localhost:3001/users'
+I added user info on the backend to test and it can be accessed at `http://localhost:3001/users`
