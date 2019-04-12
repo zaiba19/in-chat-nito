@@ -1,4 +1,7 @@
+var express = require('express');
 var mysql = require('mysql')
+
+
 var connection = mysql.createConnection({
 	host: 'inchatnitodb.cnjllkigqfjv.us-east-1.rds.amazonaws.com',
 	user: 'InchatnitoMaster',
@@ -13,9 +16,10 @@ connection.connect((err)=>{
 	}
 	console.log('Connection extablished');
 
-
-
-
 });
 
-connection.end();
+
+
+module.export=connection;
+//connection.end();
+
