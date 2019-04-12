@@ -56,9 +56,3 @@ logOut = (e) => {
   }
 }
 export default App;
-
-
-
-
-
-

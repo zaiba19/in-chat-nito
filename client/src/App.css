@@ -159,3 +159,16 @@ p {
   color: #fff;
   font-weight: 100;
 }
+
+#create_form{
+  text-align: center;
+}
+
+.nav_item {
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  letter-spacing: 0.12em;
+  font-size: 1.3em;
+}
+
