@@ -15,15 +15,41 @@ class App extends React.Component {
       token: undefined,
     }
 
-  getUsername = async (e) => {
-    e.preventDefault();
-    const input_username = e.target.elements.name.value;
+  getUsername = async(event) => {
+    event.preventDefault();
 
-      this.setState({
-        name: input_username,
-        token: true
-      }) 
+    // gets userinput and prints name in console
+    const input_username = event.target.elements.name.value;
+    console.log(input_username);
+
+    // reads local json file and prints content to console
+    var customData = require('./sampledata.json');  
+    //console.log(customData)
+
+    // prints contents of the student "william" - courses + token
+    //console.log(customData.students.william)
+
+
+      var data = customData.find(input_username);
+      if(data) {
+          console.log('found');
+      }
+ 
+
+
+      // this.setState({
+      //   name: input_username,
+      //   token: undefined
+      // }) 
+  
+
 }
+
+// createUsername = async(u) => {
+//   u.preventDefault();
+//   const new_username = u.target.elements.name.value;
+//   console.log(new_username);
+// }
 
 
 logOut = (e) => {
@@ -40,7 +66,7 @@ logOut = (e) => {
     if(this.state.token === undefined)
       return (
          <div className="wrapper">
-        <HomePage/>
+        <HomePage getUsername={this.getUsername}/>
         </div>
 
 

@@ -1,0 +1,61 @@
+{
+    "students": {
+    "luna": {
+      "token" : "a=5iqd8",
+      "courses": [
+        {
+          "name" : "Web Development"
+        },
+        {
+         "name" : "Computer Architecture"
+          
+        },
+        {
+         "name" : "Computer Architecture"
+        }
+      ]
+    },
+    "frida": {
+      "token" : "b=jnrbf7i",
+      "courses": [
+        {
+          "name" : "Art History"
+        },
+        {
+         "name" : "Woman & Gender Studies"
+        },
+        {
+         "name" : "Mexican Painters"
+        }
+      ]
+    },
+    "winston": {
+        "token" : "c=3wue8",
+        "courses": [
+          {
+            "name" : "Colonialism"
+          },
+          {
+           "name" : "World War I History"
+          },
+          {
+           "name" : "Political Theories"
+          }
+        ]
+      },
+      "william": {
+        "token" : "d=8urr4o",
+        "courses": [
+          {
+            "name" : "British Literature"
+          },
+          {
+           "name" : "Introduction To Theatre"
+          },
+          {
+           "name" : "Romantic Poetry"
+          }
+        ]
+      }
+  }
+}

@@ -18,15 +18,15 @@ ReactDOM.render(
        <div>
        <nav>
           <ul id="navbar">
-              <Link class="nav_item" id="text" to="/">Home</Link>
-              <Link  class="nav_item" to="/courses">Courses</Link>
-              <Link  class="nav_item" to="/join">JoinCourse</Link>
-              <Link  class="nav_item" to="/create">CreateCourse</Link>
-              <Link  class="nav_item" to="/chat">Chat</Link>
+              <Link className="nav_item" id="text" to="/">Home</Link>
+              <Link  className="nav_item" to="/courses">Courses</Link>
+              <Link  className="nav_item" to="/join">JoinCourse</Link>
+              <Link  className="nav_item" to="/create">CreateCourse</Link>
+              <Link  className="nav_item" to="/chat">Chat</Link>
           </ul>
         </nav>
 
-           <Route exact path="/" component={HomePage}/>
+           <Route exact path="/" component={App}/>
            <Route path="/courses" component={ClassList}/>
            <Route path="/join" component={JoinCourse}/>
            <Route path="/create" component={CourseCreate}/>
