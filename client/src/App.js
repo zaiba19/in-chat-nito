@@ -7,7 +7,6 @@ import Logout from "./components/Logout"
 
 
 
-
 class App extends React.Component {
 
     state = {
