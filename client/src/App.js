@@ -30,11 +30,22 @@ class App extends React.Component {
     //console.log(customData.students.william)
 
 
-      var data = customData.find(input_username);
-      if(data) {
-          console.log('found');
-      }
- 
+    var url = 'https://reqres.in/api/users';
+    var auth_username = {"username" : input_username};
+
+      fetch(url, {
+        method: 'GET', // or 'PUT'
+        //body: JSON.stringify(auth_username),
+      }).then(res => res.json())
+      .then(response => {
+        console.log(response);
+        // const roken = JSON.stringify(response);
+        // const parser = JSON.parse(roken);
+        // var toke = parser.token;
+        // this.setState({
+        //   token: toke
+        // })
+      });
 
 
       // this.setState({
@@ -45,11 +56,19 @@ class App extends React.Component {
 
 }
 
-// createUsername = async(u) => {
-//   u.preventDefault();
-//   const new_username = u.target.elements.name.value;
-//   console.log(new_username);
-// }
+createUsername = async(u) => {
+  u.preventDefault();
+  var url = 'https://reqres.in/api/users';
+  fetch(url, {
+   
+    method: "POST",
+    body: {
+        name: "paul rudd",
+        movies: ["I Love You Man", "Role Models"]
+    }.then(console.log(response))
+    });
+		
+}
 
 
 logOut = (e) => {
@@ -66,7 +85,7 @@ logOut = (e) => {
     if(this.state.token === undefined)
       return (
          <div className="wrapper">
-        <HomePage getUsername={this.getUsername}/>
+        <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
         </div>
 
 
