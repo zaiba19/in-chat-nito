@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 const ClassList = props => (
 	<div>
 
-		<h2>Welcome back {props.username}. Here are the courses you are enrolled in: </h2>
+		<h2>Here are the courses you are enrolled in: </h2>
 		<p id="test"></p>
 
 	<center><Button variant="primary" size="lg" block>

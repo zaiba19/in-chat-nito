@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
 import './SignUp.css'
-import Login from "./components/Login"
+import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
-import SignUp from "./components/SignUp"
-import socketIOClient from 'socket.io-client'
 
 
 
@@ -41,8 +39,7 @@ logOut = (e) => {
     if(this.state.token === undefined)
       return (
          <div className="wrapper">
-         <center><SignUp getUsername={this.getUsername}/></center>
-        <Login getUsername={this.getUsername}/>
+        <HomePage/>
         </div>
 
 
