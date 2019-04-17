@@ -41,3 +41,32 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//app is supplied an HTTP server 
+var http = require('http').Server(express);
+
+//passing http server to socket (handles the client)
+var io = require('socket.io')(http);
+
+//route handler '/' for website home
+// app.get('/', function(req, res){
+//   res.send('<h1>Hello world</h1>');
+// });
+
+//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/index.html');
+  });
+
+// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+    io.emit('chat message', msg); 
+  });
+}); 
+
+//to make the http server listen on port 3000 
+http.listen(3000, function(){
+  console.log('listening on *:3000');
+});
