@@ -48,11 +48,11 @@ var http = require('http').Server(express);
 
 //passing http server to socket (handles the client)
 var socket = require('socket.io');
-server = app.listen(3001, function(){
+var server = app.listen(3001, function(){
   console.log('server is running on port 3001')
 });
 
-io = socket(server);
+var io = socket(server);
 
 io.on('connection', (socket) => {
   console.log(socket.id);
