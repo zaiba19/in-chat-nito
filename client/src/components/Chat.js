@@ -40,7 +40,7 @@ class Chat extends React.Component{
                     <div className="col-4">
                         <div className="card">
                             <div className="card-body">
-                                <div className="card-title">Global Chat</div>
+                                <div className="card-title">Class Chat</div>
                                 <hr/>
                                 <div className="messages">
                                     {this.state.messages.map(message => {
