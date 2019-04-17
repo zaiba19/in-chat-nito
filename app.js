@@ -47,26 +47,17 @@ module.exports = app;
 var http = require('http').Server(express);
 
 //passing http server to socket (handles the client)
-var io = require('socket.io')(http);
+var socket = require('socket.io');
+server = app.listen(3001, function(){
+  console.log('server is running on port 8080')
+});
 
-//route handler '/' for website home
-// app.get('/', function(req, res){
-//   res.send('<h1>Hello world</h1>');
-// });
+io = socket(server);
 
-//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/index.html');
-  });
+io.on('connection', (socket) => {
+  console.log(socket.id);
 
-// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-    io.emit('chat message', msg); 
-  });
-}); 
-
-//to make the http server listen on port 3000 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+  socket.on('SEND_MESSAGE', function(data){
+      io.emit('RECEIVE_MESSAGE', data);
+  })
 });
