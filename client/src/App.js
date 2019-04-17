@@ -29,22 +29,18 @@ class App extends React.Component {
     //console.log(customData.students.william)
 
 
-    var url = 'https://reqres.in/api/users';
-    var auth_username = {"username" : input_username};
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
 
-      fetch(url, {
-        method: 'GET', // or 'PUT'
-        //body: JSON.stringify(auth_username),
-      }).then(res => res.json())
-      .then(response => {
-        console.log(response);
+      
         // const roken = JSON.stringify(response);
         // const parser = JSON.parse(roken);
         // var toke = parser.token;
         // this.setState({
         //   token: toke
         // })
-      });
+      
 
 
       // this.setState({
@@ -61,11 +57,12 @@ createUsername = async(u) => {
   fetch(url, {
    
     method: "POST",
-    body: {
+    headers: {
         name: "paul rudd",
         movies: ["I Love You Man", "Role Models"]
-    }.then(console.log(response))
-    });
+    }
+  }).then(response => console.log(response))
+    
 		
 }
 
