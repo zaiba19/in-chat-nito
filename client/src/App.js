@@ -4,6 +4,8 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import Chat from "./components/Chat"
+import React, { Component } from 'react';
 
 
 
@@ -40,6 +42,7 @@ logOut = (e) => {
       return (
          <div className="wrapper">
         <HomePage/>
+        <Chat/>
         </div>
 
 

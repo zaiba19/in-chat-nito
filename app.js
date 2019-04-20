@@ -43,3 +43,23 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+// SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//app is supplied an HTTP server 
+var http = require('http').Server(express);
+
+//passing http server to socket (handles the client)
+var socket = require('socket.io');
+var server = app.listen(3001, function(){
+  console.log('server is running on port 3001')
+});
+
+var io = socket(server);
+
+io.on('connection', (socket) => {
+  console.log(socket.id);
+
+  socket.on('SEND_MESSAGE', function(data){
+      io.emit('RECEIVE_MESSAGE', data);
+  })
+});

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker'; 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
@@ -12,17 +11,18 @@ import ClassList from './components/ClassList';
 import HomePage from './components/HomePage';
 import CourseCreate from './components/CourseCreate';
 import JoinCourse from './components/JoinCourse';
+import Chat from './components/Chat';
 
 ReactDOM.render(
     <Router>
        <div>
        <nav>
           <ul id="navbar">
-              <Link class="nav_item" id="text" to="/">Home</Link>
-              <Link  class="nav_item" to="/courses">Courses</Link>
-              <Link  class="nav_item" to="/join">JoinCourse</Link>
-              <Link  class="nav_item" to="/create">CreateCourse</Link>
-              <Link  class="nav_item" to="/chat">Chat</Link>
+              <Link className="nav_item" id="text" to="/">Home</Link>
+              <Link  className="nav_item" to="/courses">Courses</Link>
+              <Link  className="nav_item" to="/join">JoinCourse</Link>
+              <Link  className="nav_item" to="/create">CreateCourse</Link>
+              <Link  className="nav_item" to="/chat">Chat</Link>
           </ul>
         </nav>
 
@@ -30,7 +30,7 @@ ReactDOM.render(
            <Route path="/courses" component={ClassList}/>
            <Route path="/join" component={JoinCourse}/>
            <Route path="/create" component={CourseCreate}/>
-           <Route path="/chat" />
+           <Route path="/chat"  component={Chat}/> 
        </div>
     </Router>,
     document.getElementById('root')
