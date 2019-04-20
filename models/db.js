@@ -20,6 +20,6 @@ connection.connect((err)=>{
 
 
 
-module.export=connection;
+module.exports=connection;
 //connection.end();
 
