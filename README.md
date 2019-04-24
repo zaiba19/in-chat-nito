@@ -6,9 +6,16 @@
 For those with Windows running a linux bash you can do so by installing a nodeenv environment. Follow the instructions here -> [Nodeenv](https://github.com/ekalinin/nodeenv)
 
 ## Run Program
-In the root directory run `./bin/www`
+In the root directory run
+`npm install`
 
-In another terminal go to _client_ folder and run `npm start` 
+`node ./bin/www`
+
+In another terminal go to _client_ folder and run 
+
+`npm install`
+
+`npm start` 
 
 You should be able to access the front-end in `http://localhost:3000`
 
