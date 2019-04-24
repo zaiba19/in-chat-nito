@@ -29,4 +29,18 @@ Music History	</Button> </center>
   </div>
 );
 
+// function ClassList(props) { 
+// 	return (
+// 		<div>
+// 			<li>Test</li>
+// 		</div>
+// 	//   <div className="enter">{props.contacts.map(c => 
+// 	// 	<li><strike>{c.content}</strike></li>  
+		
+		  
+  
+// 	//   )}
+// 	//   </div>
+// 	);
+//   }
 export default ClassList;

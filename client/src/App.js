@@ -4,6 +4,8 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import Chat from "./components/Chat"
+// import React, { Component } from 'react';
 
 
 
@@ -12,47 +14,51 @@ class App extends React.Component {
     state = {
       name: undefined,
       token: undefined,
+      fetchData: []
     }
 
   getUsername = async(event) => {
-    event.preventDefault();
+    //event.preventDefault();
 
     // gets userinput and prints name in console
     const input_username = event.target.elements.name.value;
     console.log(input_username);
 
-    // reads local json file and prints content to console
-    var customData = require('./sampledata.json');  
-    //console.log(customData)
 
-    // prints contents of the student "william" - courses + token
-    //console.log(customData.students.william)
+  // fetch('https://reqres.in/api/users')
+  // .then(response => response.json())
+  // .then(data => {
+  //   console.log(data);
+  //   this.setState({
+  //     fetchData: data,
+  //     token: true
+  //   })
+  // })
 
+  var url = 'https://hunter-todo-api.herokuapp.com/auth';
+  var auth_username = {"username" : input_username};
 
-    fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(json => console.log(json))
+    fetch(url, {
+      method: 'POST', // or 'PUT'
+      body: JSON.stringify(auth_username),
+    }).then(res => res.json())
+    .then(response => {
+      const roken = JSON.stringify(response);
+      const parser = JSON.parse(roken);
+      var toke = parser.token;
+      this.setState({
+        token: toke
+      })
+    });
 
       
-        // const roken = JSON.stringify(response);
-        // const parser = JSON.parse(roken);
-        // var toke = parser.token;
-        // this.setState({
-        //   token: toke
-        // })
-      
-
-
-      // this.setState({
-      //   name: input_username,
-      //   token: undefined
-      // }) 
+       
   
 
 }
 
 createUsername = async(u) => {
-  u.preventDefault();
+ // u.preventDefault();
   var url = 'https://reqres.in/api/users';
   fetch(url, {
    
@@ -82,6 +88,7 @@ logOut = (e) => {
       return (
          <div className="wrapper">
         <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+        {/* <Chat/> */}
         </div>
 
 
@@ -90,7 +97,7 @@ logOut = (e) => {
       return (
       <div>
           <Logout logOut={this.logOut}/>
-          <ClassList username={this.state.name} token={this.state.token}/>
+          <ClassList contacts={this.state.fetchData}/>
       </div>
       );
   }
