@@ -9,6 +9,7 @@ var conn=db;
 
 
 router.get('/:name', function(req, res, next) {
+	//console.log(req.body);
 	console.log(req.params.name);
 	var username=req.params.name;
 	//user.create_User(req.params.name);
