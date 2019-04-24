@@ -23,14 +23,14 @@ class App extends React.Component {
     const input_username = e.target.elements.name.value;
 	console.log(input_username);
 	//THIS IS THE SIGNUP CODE
-	/*fetch('/signup/${input_username}', {
+	fetch(`/signup/${input_username}`, {
 		  method:'GET',
 		  header: input_username
 		})
 	
 		.then(res => console.log(res.text()))
 		.then(signup => this.setState({ signup }));
-	*/
+	
      
 }
 
@@ -65,12 +65,12 @@ logOut = (e) => {
         {this.state.users.map(user =>
           <div key={user.id}>{user.username}</div>
         )}
-      </div>
+      </div> */
 	  <div className="App">
          <h1>Signup</h1>
         
         
-      </div>  */
+      </div>  
         </div> 
 
 
