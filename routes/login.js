@@ -9,24 +9,23 @@ var conn=db;
 
 
 router.get('/:name', function(req, res, next) {
-	//console.log(req.body);
 	console.log(req.params.name);
 	var username=req.params.name;
-	//user.create_User(req.params.name);
-	//var out = user.findUser(req.params.name);
-	//console.log(out);
-	conn.query('INSERT INTO user_table(username) VALUES (?)',username,function(err,rows){
+	
+	conn.query('SELECT username FROM user_table WHERE username= ?',username,function(err,rows){
+
+		//runs if err has input after select user
 					
 		if(err){
 			//console.log("error: ",err);
 		    //throw err;//result(err,null);
-			res.send("Error: Username already exists.");
+			res.send("Error: no user found");
 			
 		}
 		else {
 			
 			console.log(rows);
-			res.send("User has been created");
+			res.send(rows);
 		}		
 	});
 	
