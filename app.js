@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var signupRouter = require('./routes/signup');
+var loginRouter = require('./routes/login');
 
 var app = express();
 //DATABASE
@@ -23,6 +25,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/signup', signupRouter);
+app.use('/login',loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,26 +42,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  console.log(err);
 });
 
 module.exports = app;
-
-// SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//app is supplied an HTTP server 
-var http = require('http').Server(express);
-
-//passing http server to socket (handles the client)
-var socket = require('socket.io');
-var server = app.listen(3001, function(){
-  console.log('server is running on port 3001')
-});
-
-var io = socket(server);
-
-io.on('connection', (socket) => {
-  console.log(socket.id);
-
-  socket.on('SEND_MESSAGE', function(data){
-      io.emit('RECEIVE_MESSAGE', data);
-  })
-});

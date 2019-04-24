@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 import './index.css';
 import * as serviceWorker from './serviceWorker'; 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -26,7 +27,7 @@ ReactDOM.render(
           </ul>
         </nav>
 
-           <Route exact path="/" component={HomePage}/>
+           <Route exact path="/" component={App}/>
            <Route path="/courses" component={ClassList}/>
            <Route path="/join" component={JoinCourse}/>
            <Route path="/create" component={CourseCreate}/>
