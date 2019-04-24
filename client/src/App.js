@@ -14,46 +14,34 @@ class App extends React.Component {
     state = {
       name: undefined,
       token: undefined,
-      fetchData: []
+      fetchData: [],
+      users: []
     }
 
+  // function for Login button
   getUsername = async(event) => {
-    //event.preventDefault();
+    event.preventDefault();
 
     // gets userinput and prints name in console
     const input_username = event.target.elements.name.value;
     console.log(input_username);
 
+    fetch('/users')
+      .then(res => res.json())
+      .then(users => this.setState({ 
+        users: users,
+        token: "somevalue"
+      }));
 
-  // fetch('https://reqres.in/api/users')
-  // .then(response => response.json())
-  // .then(data => {
-  //   console.log(data);
-  //   this.setState({
-  //     fetchData: data,
-  //     token: true
-  //   })
-  // })
+    // var auth_url = '/users';
+    // fetch(auth_url, {
+    //   method: 'POST', // or 'PUT'
+    //   body: input_username
+    // }).then(response => {
+    //   console.log(response.status)
+    //   console.log(response)
+    // })
 
-  var url = 'https://hunter-todo-api.herokuapp.com/auth';
-  var auth_username = {"username" : input_username};
-
-    fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(auth_username),
-    }).then(res => res.json())
-    .then(response => {
-      const roken = JSON.stringify(response);
-      const parser = JSON.parse(roken);
-      var toke = parser.token;
-      this.setState({
-        token: toke
-      })
-    });
-
-      
-       
-  
 
 }
 
@@ -97,7 +85,7 @@ logOut = (e) => {
       return (
       <div>
           <Logout logOut={this.logOut}/>
-          <ClassList contacts={this.state.fetchData}/>
+          <ClassList contacts={this.state.fetchData} jinfo={this.state.users}/>
       </div>
       );
   }

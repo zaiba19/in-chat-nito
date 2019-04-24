@@ -2,45 +2,43 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 
 
-const ClassList = props => (
-	<div>
+// const ClassList = props => (
+// 	<div>
 
-		<h2>Here are the courses you are enrolled in: </h2>
-		<p id="test"></p>
+// 		<h2>Here are the courses you are enrolled in: </h2>
+// 		<p id="test"></p>
 
-	<center><Button variant="primary" size="lg" block>
-Web Development	</Button> </center>
-	&nbsp;&nbsp;&nbsp;
+// 	<center><Button variant="primary" size="lg" block>
+// Web Development	</Button> </center>
+// 	&nbsp;&nbsp;&nbsp;
 
-	<center><Button variant="primary" size="lg" block>
-Computer Architecture	</Button> </center>
-	&nbsp;&nbsp;&nbsp;
+// 	<center><Button variant="primary" size="lg" block>
+// Computer Architecture	</Button> </center>
+// 	&nbsp;&nbsp;&nbsp;
 
-	<center><Button variant="primary" size="lg" block>
-Spanish	</Button> </center>
-	&nbsp;&nbsp;&nbsp;
+// 	<center><Button variant="primary" size="lg" block>
+// Spanish	</Button> </center>
+// 	&nbsp;&nbsp;&nbsp;
 
-	<center><Button variant="primary" size="lg" block>
-Game Design	</Button> </center>
-	&nbsp;&nbsp;&nbsp;
+// 	<center><Button variant="primary" size="lg" block>
+// Game Design	</Button> </center>
+// 	&nbsp;&nbsp;&nbsp;
 	
-	<center><Button variant="primary" size="lg" block>
-Music History	</Button> </center>
-  </div>
-);
+// 	<center><Button variant="primary" size="lg" block>
+// Music History	</Button> </center>
+//   </div>
 
-// function ClassList(props) { 
-// 	return (
-// 		<div>
-// 			<li>Test</li>
-// 		</div>
-// 	//   <div className="enter">{props.contacts.map(c => 
-// 	// 	<li><strike>{c.content}</strike></li>  
-		
-		  
-  
-// 	//   )}
-// 	//   </div>
-// 	);
-//   }
+
+// );
+
+// displays users from "/users"
+function ClassList(props) { 
+	return (
+		 <div>{props.jinfo.map(user=>{
+			 return <h2 key={user.id}>{user.username}</h2>
+		 })}
+			 {/* <h1>hello</h1> */}
+		 </div>
+	);
+  }
 export default ClassList;
