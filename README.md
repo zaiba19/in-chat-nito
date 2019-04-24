@@ -6,7 +6,8 @@
 For those with Windows running a linux bash you can do so by installing a nodeenv environment. Follow the instructions here -> [Nodeenv](https://github.com/ekalinin/nodeenv)
 
 ## Run Program
-In the root directory run
+In the root directory run  
+
 `npm install`
 
 `node ./bin/www`
