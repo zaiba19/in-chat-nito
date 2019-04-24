@@ -1,22 +1,4 @@
 //var sql = require(db.js);
-var mysql = require('mysql')
-
-
-var conn = mysql.createConnection({
-	host: 'inchatnitodb.cnjllkigqfjv.us-east-1.rds.amazonaws.com',
-	user: 'InchatnitoMaster',
-	password:'inchatnito',
-	database:'inchatnitodb'
-});
-
-/*conn.connect((err)=>{
-	if(err){
-		console.log('Error connecting to db');
-		return;
-	}
-	console.log('Connection extablished');
-
-}); */
 
 //USER object contructor
 
@@ -24,39 +6,51 @@ var User = function(user,id) {
 	this.user =user;
 	this.id = id;
 	
-}
+		this.getUsername=function(){
+				return this.user;
+		}
+	/*this.getID=function(){
+			return this.user;
+	} */
+	}
 
-//User function to create user
-User.createUser = function createUser(newUser,result){
+//User function to create user based off class info
+/*User.createUser= function (username){
 	//SQL call to check is user exists
 	//newUser="shun"; //dummy
+	console.log("NEwuser in createuser ",username);
 	
-	conn.query("SELECT userID, username FROM user_table WHERE username= ?",newUser,function(err,res){
+	conn.query('SELECT username FROM user_table WHERE username= ?',username,function(err,res){
+		console.log("Result: ",JSON.stringify(res));
+		
+		var out = JSON.stringify(res);
 		//runs if err has input after select user
 		if(err){
 			console.log("Username does not exist",err);
 				// 
-				sql.query("INSERT INTO user_table ?",newUser,function(err,res){
+				conn.query('INSERT INTO user_table(username) VALUES (?)',username,function(err,res){
+					
 					if(err){
 						console.log("error: ",err);
-						result(err,null);
+						return err;//result(err,null);
 					}
 					else {
-						console.log(res.userID);
-						result(null,res.insertId);
+						console.log("USER has been added. ID: " + res);
+						return res;//result(null,res.insertId);
 					}
 					
 				});
 			 
 		}
 		else {
-			console.log("Username EXISTS",res.userID);
-			result(null,res.insertId);
+			console.log("Username EXISTS",res);
+			//result(null,res.insertId);
+			return out;//result(out);
 		}
 		
 	});
 	
 	
-};
+}; */
 	
-module.exports=User;
+module.exports= User;
