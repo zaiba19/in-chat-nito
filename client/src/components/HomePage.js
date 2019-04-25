@@ -6,7 +6,7 @@ const HomePage = props => (
 	<form onSubmit={props.getUsername}>
 		<h4>Login</h4>
 
-		<input id='login_input' type="text" name="name" placeholder="Username..."/>
+		<input id='login_input' type="text" name="name" className="login-button" placeholder="Username..."/>
 		<button type="submit" id="getData" className='btn'>Submit</button>
 		
 	</form>
@@ -15,7 +15,7 @@ const HomePage = props => (
 	<form className= "SignUponSubmit" onSubmit = {props.createUsername}>
 		<h4>Sign Up</h4>
 
-		<input id='login_input' type="text" name="new_username" placeholder="Enter New Username"/>
+		<input id='login_input' type="text" name="new_username" className="login-button" placeholder="Enter New Username"/>
 		<button id="getData" className='SignUpbtn'>Submit</button>
 		<p id="signup_error"></p>	
 	</form> 
