@@ -21,7 +21,7 @@ body {
 
 
 input[type="text"] {
-  background-color: #92dcd1;
+  background-color:transparent;
   border: 0;
   border-bottom: solid 2px #92dcd1;
   /*width: 40%;*/
