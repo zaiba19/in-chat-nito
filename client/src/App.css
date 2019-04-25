@@ -34,6 +34,10 @@ input[type="text"] {
   font-size: 18px;
 }
 
+.card-title{
+  font-size: 32px;
+  
+}
 
 h4 {
   color: white;
