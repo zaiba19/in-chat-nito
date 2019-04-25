@@ -5,8 +5,7 @@ import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
 import Chat from "./components/Chat"
-//import React, { Component } from 'react';
-
+// import React, { Component } from 'react';
 
 
 class App extends React.Component {
@@ -14,24 +13,55 @@ class App extends React.Component {
     state = {
       name: undefined,
       token: undefined,
-	  users:[],
-	  signup:undefined
+      users: [],
+      signup: undefined
     }
 
-  getUsername = async (e) => {
-    e.preventDefault();
-    const input_username = e.target.elements.name.value;
-	console.log(input_username);
-	//THIS IS THE SIGNUP CODE
-	fetch(`/signup/${input_username}`, {
-		  method:'GET',
-		  header: input_username
-		})
-	
-		.then(res => console.log(res.text()))
-		.then(signup => this.setState({ signup }));
-	
-     
+  // FUNCTION FOR LOGIN BUTTON -- NEEDS MODIFICATION
+  getUsername = async(event) => {
+    //this prevents the page from reloading when the button is clicked
+    event.preventDefault();
+
+    // gets userinput from login field and prints name in console
+    const existing_username = event.target.elements.name.value;
+    console.log(existing_username);
+
+    // -- MODIFY THIS SECTION LATER --
+    fetch(`/signup/${existing_username}`, {
+      method:'GET',
+      header: existing_username
+    })
+    .then(res => {
+      res.text().then(data => {
+        if(data === "Error: Username already exists."){
+          this.setState({ name : existing_username })
+          console.log(data)
+        }
+      });
+    }) 
+}
+
+
+// FUNCTION FOR SIGNUP BUTTON
+createUsername = async(u) => {
+  //this prevents the page from reloading when the button is clicked
+  u.preventDefault();
+
+  // gets userinput from signup field and prints name in console
+  const new_username = u.target.elements.new_username.value;
+  console.log(new_username);
+
+  // checks if the new username already exists
+  fetch(`/signup/${new_username}`, {
+    method:'GET',
+    header: new_username
+  })
+  .then(function(res){
+    res.text().then(function(data) {
+      let error = data;
+      document.getElementById('signup_error').innerHTML = error;
+    });
+  }) 
 }
 
 //THIS IS USERS
@@ -40,8 +70,6 @@ class App extends React.Component {
       .then(res => res.json())
       .then(users => this.setState({ users }));
   } */
-
-
  
 logOut = (e) => {
   e.preventDefault();
@@ -54,23 +82,12 @@ logOut = (e) => {
 
    render() {
 	
-    if(this.state.token === undefined)
+    if(this.state.name === undefined)
       return (
          <div className="wrapper">
         <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-      <div className="App">
-		
-       {/* <h1>Users</h1> */}
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
-      </div> 
-	  <div className="App">
-         {/* <h1>Signup</h1> */}
-        
-        
-      </div>  
-        </div>  
+        {/* <Chat/> */}
+        </div>
 
 
         );
@@ -78,7 +95,7 @@ logOut = (e) => {
       return (
       <div>
           <Logout logOut={this.logOut}/>
-          <ClassList username={this.state.name} token={this.state.token}/>
+          <ClassList jinfo={this.state.users}/>
       </div>
       );
   }
