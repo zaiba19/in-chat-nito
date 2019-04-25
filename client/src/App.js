@@ -58,20 +58,19 @@ logOut = (e) => {
       return (
          <div className="wrapper">
         <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-     
-		/* <div className="App">
+      <div className="App">
 		
-        <h1>Users</h1>
+       {/* <h1>Users</h1> */}
         {this.state.users.map(user =>
           <div key={user.id}>{user.username}</div>
         )}
-      </div> */
+      </div> 
 	  <div className="App">
-         <h1>Signup</h1>
+         {/* <h1>Signup</h1> */}
         
         
       </div>  
-        </div> 
+        </div>  
 
 
         );
