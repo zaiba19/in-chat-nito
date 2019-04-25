@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 
 
 const ClassList = props => (
-	<div>
+<div>
 
-		<h2>Here are the courses you are enrolled in: </h2>
-	
+		<h2>&nbsp;&nbsp;&nbsp;Here are the courses you are enrolled in: </h2>
+		&nbsp;&nbsp;&nbsp;
+
 	<div className = "courses_sec">
 	<center><Button className = "courses_btn" >
 Web Development	</Button> </center>
