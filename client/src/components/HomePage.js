@@ -10,13 +10,14 @@ const HomePage = props => (
 		<button type="submit" id="getData" className='btn'>Submit</button>
 		
 	</form>
-	<p id="output"></p>	
+	
 
 	<form className= "SignUponSubmit" onSubmit = {props.createUsername}>
 		<h4>Sign Up</h4>
 
-		<input id='login_input' type="text" name="name" placeholder="Enter New Username"/>
+		<input id='login_input' type="text" name="new_username" placeholder="Enter New Username"/>
 		<button id="getData" className='SignUpbtn'>Submit</button>
+		<p id="signup_error"></p>	
 	</form> 
 </div>
 	);

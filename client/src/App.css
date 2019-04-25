@@ -172,3 +172,11 @@ p {
   font-size: 1.3em;
 }
 
+.courses_sec {
+  margin: auto;
+  width: 50%;
+}
+
+.courses_btn {
+  width: 75%;
+}
