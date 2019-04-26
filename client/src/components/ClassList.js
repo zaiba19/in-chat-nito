@@ -5,8 +5,6 @@ import Button from 'react-bootstrap/Button';
 const ClassList1 = props => (
 	<div>
 
-		<h2>Here are the courses you are enrolled in: </h2>
-	
 	<div className = "courses_sec">
 	<center><Button className = "courses_btn" >
 Web Development	</Button> </center>
