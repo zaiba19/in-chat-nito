@@ -2,11 +2,8 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 
 
-const ClassList = props => (
-<div>
-
-		<h2>&nbsp;&nbsp;&nbsp;Here are the courses you are enrolled in: </h2>
-		&nbsp;&nbsp;&nbsp;
+const ClassList1 = props => (
+	<div>
 
 	<div className = "courses_sec">
 	<center><Button className = "courses_btn" >
@@ -29,8 +26,6 @@ Game Design	</Button> </center>
 Music History	</Button> </center>
 	</div>
   </div>
-
-
 );
 
 
@@ -44,6 +39,25 @@ Music History	</Button> </center>
 // 		 </div>
 // 	);
 //   }
+
+// used for inline styling below -- specifically for jsx
+let styles = {
+    margin: '10px',
+  };
+
+//displays courses from "/courses"
+function ClassList(props) { 
+	return (
+		 <div>
+			<h2>Here are the courses you are enrolled in: </h2>
+			<div className = "courses_sec">
+				{props.courses.map(course=>{
+					return <Button className="courses_btn" style={styles} key={course.id} >{course.name}</Button>
+				})}
+			</div>
+		 </div>
+	);
+  }
 
 
 export default ClassList;
