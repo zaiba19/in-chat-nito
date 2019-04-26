@@ -8,7 +8,7 @@ const HomePage = props => (
 
 		<input id='login_input' type="text" name="name" placeholder="Username..."/>
 		<button type="submit" id="getData" className='btn'>Submit</button>
-		
+		<p id="login_error"></p>
 	</form>
 	
 

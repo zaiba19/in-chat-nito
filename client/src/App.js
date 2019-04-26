@@ -12,10 +12,10 @@ class App extends React.Component {
 
     state = {
       name: undefined,
-      token: undefined,
       users: [],
-      signup: undefined
+      courses: []
     }
+
 
   // FUNCTION FOR LOGIN BUTTON -- NEEDS MODIFICATION
   getUsername = async(event) => {
@@ -26,19 +26,35 @@ class App extends React.Component {
     const existing_username = event.target.elements.name.value;
     console.log(existing_username);
 
-    // -- MODIFY THIS SECTION LATER --
-    fetch(`/signup/${existing_username}`, {
+    fetch(`/login/${existing_username}`, {
       method:'GET',
       header: existing_username
     })
     .then(res => {
-      res.text().then(data => {
-        if(data === "Error: Username already exists."){
-          this.setState({ name : existing_username })
+      console.log(res.status)
+      // if user does not exists, print error message on screen
+      if(res.status === 404){
+        res.text().then(function(data) {
           console.log(data)
-        }
-      });
+          let error = data;
+          // gets element with id 'login_error" and prints the error on the screen
+          document.getElementById('login_error').innerHTML = error;
+        }); 
+      }
+      // if user exists, store username in state + fetch courses -> redirects to courses page
+      if(res.status === 200){
+        // setting the state causes the page to be rerendered 
+        this.setState({ name : existing_username })
+
+        // fetch list of courses from backend route
+        fetch('/courses')
+        .then(res => res.json())
+        .then(courses => this.setState({ courses }))
+        .then(test => console.log(this.state.courses))
+      }
     }) 
+
+    
 }
 
 
@@ -58,13 +74,17 @@ createUsername = async(u) => {
   })
   .then(function(res){
     res.text().then(function(data) {
+      console.log(data)
       let error = data;
+      // gets element with id 'signup_error" and prints the error on the screen
       document.getElementById('signup_error').innerHTML = error;
     });
   }) 
 }
 
-//THIS IS USERS
+
+//THIS IS FOR USERS -- via users route in backend
+// NOTE : componentDidMount() is invoked immediately after a component is mounted
 /*  componentDidMount() {
     fetch('/users')
       .then(res => res.json())
@@ -75,7 +95,7 @@ logOut = (e) => {
   e.preventDefault();
   this.setState({
     name: undefined,
-    token: undefined,
+    courses: []
   })
 }
 
@@ -95,7 +115,7 @@ logOut = (e) => {
       return (
       <div>
           <Logout logOut={this.logOut}/>
-          <ClassList jinfo={this.state.users}/>
+          <ClassList jinfo={this.state.users} courses={this.state.courses}/>
       </div>
       );
   }

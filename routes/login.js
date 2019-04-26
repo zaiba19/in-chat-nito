@@ -7,7 +7,7 @@ var mysql = require('mysql')
 
 var conn=db;
 
-
+ 
 router.get('/:name', function(req, res, next) {
 	console.log(req.params.name);
 	var username=req.params.name;
@@ -16,17 +16,28 @@ router.get('/:name', function(req, res, next) {
 
 		//runs if err has input after select user
 					
-		if(err){
-			//console.log("error: ",err);
-		    //throw err;//result(err,null);
+		// if(err){
+		// 	//console.log("error: ",err);
+		//     //throw err;//result(err,null);
+		// 	res.send("Error: no user found");
+			
+		// }
+		// else {
+			
+		// 	console.log(rows);
+		// 	res.send(rows);
+		// }		
+
+
+		if(rows.length === 0){
+			//console.log("This row is empty!");
+			res.statusCode = 404;
 			res.send("Error: no user found");
-			
 		}
-		else {
-			
-			console.log(rows);
-			res.send(rows);
-		}		
+		else{
+			res.statusCode = 200;
+			res.send("User has been found");
+		}
 	});
 	
 
