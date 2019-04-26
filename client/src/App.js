@@ -72,12 +72,27 @@ createUsername = async(u) => {
     method:'GET',
     header: new_username
   })
-  .then(function(res){
-    res.text().then(function(data) {
+  .then(res=>{
+    res.text().then(data=> {
       console.log(data)
-      let error = data;
-      // gets element with id 'signup_error" and prints the error on the screen
-      document.getElementById('signup_error').innerHTML = error;
+      let message = data;
+
+      // if user exists -> print error message
+      if(message === "Error: Username already exists."){
+        // gets element with id 'signup_error" and prints the error message on the screen
+        document.getElementById('signup_error').innerHTML = message;
+      }
+      
+      // creates username, store new_username in state + fetch courses -> redirects to courses page
+      if(message === "User has been created"){
+        this.setState({ name : new_username })
+
+        // fetch list of courses from backend route
+        fetch('/courses')
+        .then(res => res.json())
+        .then(courses => this.setState({ courses }))
+        .then(test => console.log(this.state.courses))
+      }
     });
   }) 
 }
