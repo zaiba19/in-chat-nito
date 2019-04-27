@@ -12,10 +12,8 @@ router.get('/:name', function(req, res, next) {
 	//console.log(req.body);
 	console.log(req.params.name);
 	var username=req.params.name;
-	//user.create_User(req.params.name);
-	//var out = user.findUser(req.params.name);
-	//console.log(out);
-	conn.query('INSERT INTO user_table(username) VALUES (?)',username,function(err,rows){
+	
+	conn.query('INSERT INTO user_table(userID, username) VALUES (?)',username,function(err,rows){
 					
 		if(err){
 			//console.log("error: ",err);
