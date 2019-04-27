@@ -16,19 +16,21 @@ router.get('/:name', function(req, res, next) {
 
 		//runs if err has input after select user
 					
-		if(err){
+		if(err || res=null){
 			//console.log("error: ",err);
 		    //throw err;//result(err,null);
+			res.statusCode=404;
 			res.send("Error: no user found");
 			
 		}
 		else {
 			
 			console.log(rows);
+			
+			res.statusCode=200;
 			res.send(rows);
 		}		
-	});
-	
+	}); 
 
 });
 

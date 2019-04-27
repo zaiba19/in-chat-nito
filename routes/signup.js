@@ -20,12 +20,14 @@ router.get('/:name', function(req, res, next) {
 		if(err){
 			//console.log("error: ",err);
 		    //throw err;//result(err,null);
+			res.statusCode=404;
 			res.send("Error: Username already exists.");
 			
 		}
 		else {
 			
 			console.log(rows);
+			res.statusCode=200;
 			res.send("User has been created");
 		}		
 	});
