@@ -10,7 +10,6 @@ var usersRouter = require('./routes/users');
 var app = express();
 //DATABASE
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -43,21 +42,46 @@ app.use(function(err, req, res, next) {
 module.exports = app;
 
 // SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// express initializes app to be a function handler 
+var app = require('express')();
+
 //app is supplied an HTTP server 
-var http = require('http').Server(express);
+var http = require('http').Server(app);
 
 //passing http server to socket (handles the client)
-var socket = require('socket.io');
-var server = app.listen(3001, function(){
-  console.log('server is running on port 3001')
+var io = require('socket.io')(http);
+
+//route handler '/' for website home
+// app.get('/', function(req, res){
+//   res.send('<h1>Hello world</h1>');
+// });
+
+//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
+app.get('/', function(req, res){
+    res.sendFile(__dirname + '/public/index.html');
+  });
+
+// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+    io.emit('chat message', msg); 
+  });
+}); 
+
+//to make the http server listen on port 3000 
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
 
-var io = socket(server);
 
-io.on('connection', (socket) => {
-  console.log(socket.id);
+//Jesse's Notes: 
+// create a socket catch handler 
+// connect and recurvsiely call itself 
+// try, fail, connect, try again, 
 
-  socket.on('SEND_MESSAGE', function(data){
-      io.emit('RECEIVE_MESSAGE', data);
-  })
-});
+// have gaurd rai;s; TCP 
+// test in advance for 30 connections 
+
+
+ 

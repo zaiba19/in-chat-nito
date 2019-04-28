@@ -11,7 +11,7 @@ import ClassList from './components/ClassList';
 import HomePage from './components/HomePage';
 import CourseCreate from './components/CourseCreate';
 import JoinCourse from './components/JoinCourse';
-import Chat from './components/Chat';
+// import Chat from '../../public/Chat';
 
 ReactDOM.render(
     <Router>
@@ -22,7 +22,7 @@ ReactDOM.render(
               <Link  className="nav_item" to="/courses">Courses</Link>
               <Link  className="nav_item" to="/join">JoinCourse</Link>
               <Link  className="nav_item" to="/create">CreateCourse</Link>
-              <Link  className="nav_item" to="/chat">Chat</Link>
+              {/* <Link  className="nav_item" to="/chat">Chat</Link> */}
           </ul>
         </nav>
 
@@ -30,7 +30,7 @@ ReactDOM.render(
            <Route path="/courses" component={ClassList}/>
            <Route path="/join" component={JoinCourse}/>
            <Route path="/create" component={CourseCreate}/>
-           <Route path="/chat"  component={Chat}/> 
+           {/* <Route path="/chat"  component={Chat}/>  */}
        </div>
     </Router>,
     document.getElementById('root')

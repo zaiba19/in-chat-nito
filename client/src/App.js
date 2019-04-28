@@ -35,7 +35,6 @@ logOut = (e) => {
   })
 }
 
-
     render() {
 
     if(this.state.token === undefined)
