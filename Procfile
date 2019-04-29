@@ -1,1 +1,0 @@
-web: concurrently  "node ./bin/www" "cd client && npm start" 
