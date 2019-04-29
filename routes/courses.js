@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db= require("../models/db.js");
+var db= require("../db.js");
 var async= require("async");
 
 var conn=db;
@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
 			//console.log("error: ",err);
 		    //throw err;//result(err,null);
 			//res.statusCode=404;
-			res.status(404).send(err);
+			res.status(404).send("Error: no courses found");
 			
 		} else{
 			console.log(JSON.stringify(rows));

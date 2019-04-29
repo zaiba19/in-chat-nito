@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var db= require("../models/db.js");
+var db= require("../db.js");
 //var user =require('../control/appControl.js'); //Gets user functions
 var mysql = require('mysql')
 
