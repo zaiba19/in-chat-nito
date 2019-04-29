@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
 	user: 'InchatnitoMaster',
 	password:'#1Inchatnito',
 	database:'inchatnito',
-	connectTimeout: 60000
+	//connectTimeout: 60000
 });
 
 connection.connect((err)=>{

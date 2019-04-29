@@ -12,31 +12,36 @@ router.get('/:name', function(req, res, next) {
 	console.log(req.params.name);
 	var username=req.params.name;
 	
-	conn.query('SELECT username FROM user_table WHERE username= ?',username,function(err,rows){
+	conn.query('SELECT * FROM user_table WHERE username= ?',username,function(err,rows){
 
 		//runs if err has input after select user
 					
-		// if(err){
-		// 	//console.log("error: ",err);
-		//     //throw err;//result(err,null);
-		// 	res.send("Error: no user found");
-			
-		// }
-		// else {
-			
-		// 	console.log(rows);
-		// 	res.send(rows);
-		// }		
+		if(err){
 
+		
+
+			res.status(404).send("Error: no user found");
+
+		}
 
 		if(rows.length === 0){
 			//console.log("This row is empty!");
-			res.statusCode = 404;
-			res.send("Error: no user found");
+
+			res.status(404).send("Error: no user found");
 		}
 		else{
-			res.statusCode = 200;
-			res.send("User has been found");
+		
+			console.log(rows[0]);
+
+			//console.log(rows[0].userID); //Outputs user ID
+			//Returns userID and username
+			res.cookie('userID', (rows[0].userID).toString());
+			res.cookie('username',(rows[0].username).toString());
+			//console.log(req.cookies);
+			res.status(200).send("User Log In Succesful");
+
+
+			
 		}
 	});
 	

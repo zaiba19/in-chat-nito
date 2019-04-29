@@ -1,4 +1,3 @@
-var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -9,9 +8,10 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
+//var cookiesRouter = require('./routes/cookies');
+
 
 var app = express();
-//DATABASE
 
 
 // view engine setup
@@ -29,6 +29,7 @@ app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
+//app.use('/cookies',coookiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
