@@ -30,7 +30,7 @@ router.get('/:name', function(req, res, next) {
 	console.log(req.params.name);
 	var course=req.params.name;
 	
-	conn.query('SELECT * FROM course_table' ,function(err,rows){
+	conn.query('SELECT * FROM course_table WHERE userID = ?' ,function(err,rows){
 					
 		if(err){
 			//console.log("error: ",err);

@@ -32,8 +32,32 @@ router.get('/:name', function(req, res, next) {
 		else{
 		
 			console.log(rows[0]);
+			
 			//console.log(rows[0].userID); //Outputs user ID
-			res.status(200).send(rows[0]);
+			
+			//Default courses to be inserted
+			let defaultCourses= [
+			  [rows[0].userID, 1],
+			  [rows[0].userID, 2],
+			  [rows[0].userID, 3],
+			  [rows[0].userID, 4]
+			];
+			//Query to insert defualt courses
+			conn.query(`INSERT INTO assign_table(userID,courseID) VALUES ? `,[defaultCourses],function(error,result){
+				
+								
+				if(error){
+
+					console.log(error);
+					res.status(404).send("Error: Could not enter default courses");
+				}else{
+					//Success and classes have been entered
+					res.status(200).send(rows[0]);
+				}
+				
+				
+			 });
+			//res.status(200).send(rows[0]);
 			
 			//((rows[0].userID).toString());
 		
