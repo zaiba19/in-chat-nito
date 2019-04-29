@@ -51,13 +51,13 @@ router.get('/:name', function(req, res, next) {
 									res.status(404).send("Error: Could not enter default courses");
 								}else{
 
-									
+									res.status(200).send("User Created and Default classes added");
 								}
 								
 								
 							 }); 
 							//res.status(200).send(rows[0]);
-							res.status(200).send("User Created and Default classes added");
+							
 							
 							//((rows[0].userID).toString());
 						

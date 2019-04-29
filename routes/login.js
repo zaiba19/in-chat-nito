@@ -35,7 +35,10 @@ router.get('/:name', function(req, res, next) {
 
 			//console.log(rows[0].userID); //Outputs user ID
 			//Returns userID and username
-			res.status(200).send(rows[0]);
+			res.cookie('userID', (rows[0].userID).toString());
+			res.cookie('username',(rows[0].username).toString());
+			//console.log(req.cookies);
+			res.status(200).send("User Log In Succesful");
 
 
 			
