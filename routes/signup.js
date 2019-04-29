@@ -23,14 +23,53 @@ router.get('/:name', function(req, res, next) {
 			
 		}
 		else {
-			
-		//	var user
-		//	conn.query('INSERT INTO assign_table(userID, username) VALUES (?)',username,function(err,rows){
-			
-			//res.statusCode=200;
-			res.status(200).send("User has been created");
-		}		
+						//looks for user in db
+						conn.query('SELECT * FROM user_table WHERE username= ?',username,function(erro,rows){
+									
+						if(erro){
+							res.status(404).send("Error: no user found");
+						}
+
+						if(rows.length === 0){
+							res.status(404).send("Error: no user found");
+						}else{
+						
+							console.log(rows[0]);
+							//console.log(rows[0].userID); //Outputs user ID
+							//Default courses to be inserted
+							let defaultCourses= [
+							  [rows[0].userID, 1],
+							  [rows[0].userID, 2],
+							  [rows[0].userID, 3],
+							  [rows[0].userID, 4]
+							];
+							
+							//Query to insert defualt courses with userID.
+							conn.query(`INSERT INTO assign_table(userID,courseID) VALUES ? `,[defaultCourses],function(error,result){
+							if(error){
+									console.log(error);
+									res.status(404).send("Error: Could not enter default courses");
+								}else{
+
+									
+								}
+								
+								
+							 }); 
+							//res.status(200).send(rows[0]);
+							res.status(200).send("User Created and Default classes added");
+							
+							//((rows[0].userID).toString());
+						
+							
+						}
+					});
+					
+		}	
+
 	});
+	
+	
 	
 
 });

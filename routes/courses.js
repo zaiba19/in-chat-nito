@@ -29,8 +29,10 @@ router.get('/:name', function(req, res, next) {
 
 	console.log(req.params.name);
 	var course=req.params.name;
-	
-	conn.query('SELECT * FROM course_table WHERE userID = ?' ,function(err,rows){
+	var userID = req.cookie;
+	console.log(userID);
+	conn.query('SELECT * FROM assign_table WHERE userID = ?',1, function(err,rows){
+
 					
 		if(err){
 			//console.log("error: ",err);
