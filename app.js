@@ -30,7 +30,7 @@ app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
-app.use('/logout'logoutRouter);
+app.use('/logout',logoutRouter);
 
 //app.use('/cookies',coookiesRouter);
 
