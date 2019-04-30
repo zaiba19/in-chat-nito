@@ -30,3 +30,5 @@ You should be able to access the front-end in `http://localhost:3000`
 `/courses`  - Will return courses assigned to the user currently logged in. 
 
 `/logout`  - Will clear cookies for currect user
+
+`/cookies`  - Will return cookies JSON.

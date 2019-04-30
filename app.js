@@ -8,8 +8,9 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
-//var cookiesRouter = require('./routes/cookies');
+var cookiesRouter = require('./routes/cookies');
 var logoutRouter = require('./routes/logout');
+var cookieRouter = require('./routes/cookie');
 
 
 var app = express();
@@ -31,8 +32,8 @@ app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
 app.use('/logout',logoutRouter);
+app.use('/cookie',cookieRouter);
 
-//app.use('/cookies',coookiesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
