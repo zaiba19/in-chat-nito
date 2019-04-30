@@ -54,8 +54,36 @@ class App extends React.Component {
       }
     }) 
 
+    // fetch(`/login/${existing_username}`, {
+    //   method:'GET',
+    //   header: existing_username
+    // })
+    // .then(res=>{
+    //   res.text().then(data=> {
+    //     console.log(data)
+    //     let message = data;
+  
+    //     // if user exists -> print error message
+    //     if(message === "Error: no user found"){
+    //       // gets element with id 'signup_error" and prints the error message on the screen
+    //       document.getElementById('login_error').innerHTML = message;
+    //     }
+        
+    //     // // creates username, store new_username in state + fetch courses -> redirects to courses page
+    //     // if(message === "User has been created"){
+    //     //   this.setState({ name : new_username })
+  
+    //     //   // fetch list of courses from backend route
+    //     //   fetch('/courses')
+    //     //   .then(res => res.json())
+    //     //   .then(courses => this.setState({ courses }))
+    //     //   .then(test => console.log(this.state.courses))
+    //     // }
+    //   })
+
     
-}
+//})
+  }
 
 
 // FUNCTION FOR SIGNUP BUTTON

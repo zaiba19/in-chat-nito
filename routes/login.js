@@ -32,10 +32,12 @@ router.get('/:name', function(req, res, next) {
 		if(rows.length === 0){
 			//console.log("This row is empty!");
 			res.statusCode = 404;
+			console.log(rows);
 			res.send("Error: no user found");
 		}
 		else{
 			res.statusCode = 200;
+			console.log(rows);
 			res.send("User has been found");
 		}
 	});
