@@ -52,16 +52,24 @@ var http = require('http').Server(app);
 //passing http server to socket (handles the client)
 var io = require('socket.io')(http);
 
+ //instantiates io 
+ var socket = io();
+
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/index.html');
   });
 
-// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-    io.emit('chat message', msg); 
-  });
+// // listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+// io.on('connection', function(socket){
+//     socket.on('chat message', function(msg){
+//     io.emit('chat message', msg); 
+//   });
+// }); 
+
+io.on('connection', function (socket) => {
+	require('./sockets/chat/joinedUser')(io, socket);
+  require('./sockets/chat/chatMessage')(io, socket);
 }); 
 
 //to make the http server listen on port 3000 

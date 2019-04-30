@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html>
   <head>
     <title>Socket.IO chat</title>
@@ -75,6 +75,8 @@ button:hover {
   </head>
   <body>
 
+      <div id="root"></div>
+
     <main>
       <header>
         <div class="user-count">0</div>
@@ -91,24 +93,30 @@ button:hover {
     <!-- loads the socket.io-client automatically -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
+    <!-- <script>
       $(function () {
-        //instantiates io 
-        var socket = io();
+
+        // //instantiates io 
+        // var socket = io();
+
         //created an event 
         $('form').submit(function(e){
+
         e.preventDefault(); // prevents page reloading
+
         //when user sends message i.e '#m', server gets it as chat message event 
         socket.emit('chat message', $('#m').val());
+
         //m is message 
         $('#m').val('');
+
         return false;
     });
-        socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
-    });
+    //     socket.on('chat message', function(msg){
+    //         $('#messages').append($('<li>').text(msg));
+    // });
   });
-    </script>
+    </script> -->
 
   </body>
-</html>
+</html> -->
