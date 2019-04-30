@@ -52,11 +52,6 @@ var http = require('http').Server(app);
 //passing http server to socket (handles the client)
 var io = require('socket.io')(http);
 
-//route handler '/' for website home
-// app.get('/', function(req, res){
-//   res.send('<h1>Hello world</h1>');
-// });
-
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/public/index.html');
