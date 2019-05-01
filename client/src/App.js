@@ -4,6 +4,8 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import MessageForm from "./components/MessageForm.jsx";
+import MessageList from "./components/MessageList.jsx";
 // import React, { Component } from 'react';
 
 import io from "socket.io-client"; 
@@ -15,6 +17,7 @@ class App extends React.Component {
     super(props); 
     this.state = {
       name: undefined,
+      activeChat: false,
       users: [],
       courses: [],
       messages: [], 
@@ -164,15 +167,19 @@ switchToChat = (w) => {
 
 renderHomePage(){
   return(
+    <div>
   <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+  
+      </div>
   )
 }
 
 renderChat() {
   return (
     <div>
+      <h1>Chat Page</h1>
     <Logout logOut={this.logOut}/>
-    <div className={styles.MessageWrapper}>
+    <div className>
       <MessageList
           messages={this.state.messages}
           name = {this.state.name}

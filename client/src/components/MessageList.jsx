@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-//import styles from './MessageList.css';
+import styles from '../App.css';
 
 const Message = props => (
     <div className={styles.Message + (props.from === props.name ? ' ' + styles.MessageRight : '')}>
