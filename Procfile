@@ -1,1 +1,1 @@
-web: concurrently  "PORT=3001 ./bin/www" "cd client && npm start" 
+web: concurrently  "npm start" "cd client && npm start" 
