@@ -4,18 +4,53 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
-import Chat from "./components/Chat"
 // import React, { Component } from 'react';
+
+import io from "socket.io-client"; 
+const socket = io('/')
 
 
 class App extends React.Component {
-
-    state = {
+  constructor(props) {
+    super(props); 
+    this.state = {
       name: undefined,
       users: [],
       courses: []
-    }
+      messages: [], 
+      text: '', 
+      name: ''
+    }; 
+  }
 
+  componentDidMount(){
+    socket.on('message', message => this.messageReceive(message));
+    socket.on('update', ({users}) => this.chatUpdate(users));
+  }
+
+  messageReceive(message) {
+    const messages = [...this.state.messages, message];
+    this.setState({messages})
+  }
+
+  chatUpdate(users) {
+    this.setState({users});
+  }
+
+  handleUserSubmit(name) {
+    if(name) {
+        this.setState({name});
+        socket.emit('join', name);
+    }
+}
+
+  handleMessageSubmit(message) {
+    if (message.text) {
+        const messages = [...this.state.messages, message];
+        this.setState({messages});
+        socket.emit('message', message);
+    }
+  }
 
   // FUNCTION FOR LOGIN BUTTON -- NEEDS MODIFICATION
   getUsername = async(event) => {
@@ -54,8 +89,36 @@ class App extends React.Component {
       }
     }) 
 
+    // fetch(`/login/${existing_username}`, {
+    //   method:'GET',
+    //   header: existing_username
+    // })
+    // .then(res=>{
+    //   res.text().then(data=> {
+    //     console.log(data)
+    //     let message = data;
+  
+    //     // if user exists -> print error message
+    //     if(message === "Error: no user found"){
+    //       // gets element with id 'signup_error" and prints the error message on the screen
+    //       document.getElementById('login_error').innerHTML = message;
+    //     }
+        
+    //     // // creates username, store new_username in state + fetch courses -> redirects to courses page
+    //     // if(message === "User has been created"){
+    //     //   this.setState({ name : new_username })
+  
+    //     //   // fetch list of courses from backend route
+    //     //   fetch('/courses')
+    //     //   .then(res => res.json())
+    //     //   .then(courses => this.setState({ courses }))
+    //     //   .then(test => console.log(this.state.courses))
+    //     // }
+    //   })
+
     
-}
+//})
+  }
 
 
 // FUNCTION FOR SIGNUP BUTTON
@@ -115,24 +178,25 @@ logOut = (e) => {
 }
 
 
-   render() {
-	
-    if(this.state.name === undefined)
-      return (
-         <div className="wrapper">
-        <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-        {/* <Chat/> */}
-        </div>
-
-
-        );
-    else
-      return (
-      <div>
-          <Logout logOut={this.logOut}/>
-          <ClassList jinfo={this.state.users} courses={this.state.courses}/>
-      </div>
-      );
+   render() {    
+     return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
   }
-} 
+
+
+renderLayout(){
+  return(
+    <div className={styles.MessageWrapper}>
+      <MessageList
+          messages={this.state.messages}
+          name = {this.state.name}
+          last = {this.state.messages[this.state.messages.length-2]}
+      />
+      <MessageForm
+          onMessageSubmit={message => this.handleMessageSubmit(message)}
+          name={this.state.name}
+      />
+    </div>      
+
+  ); 
+}
 export default App;
