@@ -1,3 +1,4 @@
+var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -10,9 +11,8 @@ var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
-
-
 var app = express();
+//DATABASE
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,9 +29,6 @@ app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
-app.use('/logout',logoutRouter);
-app.use('/cookie',cookieRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,14 +51,38 @@ module.exports = app;
 
 // SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// express initializes app to be a function handler 
-var app = require('express')();
+//express initializes app to be a function handler 
+// var app = require('express')();
 
-//app is supplied an HTTP server 
-var http = require('http').Server(app);
+// //app is supplied an HTTP server 
+// var http = require('http').Server(app);
 
-//passing http server to socket (handles the client)
-var io = require('socket.io')(http);
+// //passing http server to socket (handles the client)
+// var io = require('socket.io')(http);
+
+//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
+// app.get('/chat', function(req, res){
+//     res.sendFile(__dirname + '/client/public/index.html');
+//   });
+
+  //app.use(express.static(path.join(__dirname, '/client/public/index.html')));
+
+// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+// io.on('connection', function(socket){
+//     socket.on('chat message', function(msg){
+//     io.emit('chat message', msg); 
+//   });
+// }); 
+
+//to make the http server listen on port 3000 
+// http.listen(3001, function(){
+//   console.log('listening on *:3001');
+// });
+
+
+var app = require('express')();  
+var server = require('http').Server(app);  
+var io = require('socket.io')(server);
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
@@ -91,12 +112,12 @@ io.on('connection', socket => {
       });
   });
 
-  socket.on('disconnect', () => {
-      userService.removeUser(socket.id);
-      socket.broadcast.emit('update', {
-          users: userService.getAllUsers()
-      });
-  });
+  // socket.on('disconnect', () => {
+  //     userService.removeUser(socket.id);
+  //     socket.broadcast.emit('update', {
+  //         users: userService.getAllUsers()
+  //     });
+  // });
 
   socket.on('message', message => {
       const {name} = userService.getUserById(socket.id);
@@ -113,6 +134,18 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(app.get('port'), () => {
-  console.log('listening on ', app.get('port'));
-});
+// server.listen(app.get('port'), () => {
+//   console.log('listening on ', app.get('port'));
+// });
+server.listen(3001, function(){
+    console.log('listening on *:3001');
+  });
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/signup', signupRouter);
+app.use('/login',loginRouter);
+app.use('/courses',coursesRouter);
+
+
+//server.listen(3001); 
