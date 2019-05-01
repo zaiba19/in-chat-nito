@@ -188,3 +188,122 @@ p {
 .login-button{
   width:220px;
 }
+
+
+/*APP CSS  */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700%27');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.AppHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.AppTitle {
+    display: flex;
+    width: 25vw;
+    border-right: 1px solid #ccc;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #696758;
+    color: white;
+}
+
+.AppRoom {
+    display: flex;
+    width: 75vw;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: #D5CFAE;
+}
+
+.AppBody {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+.MessageWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 75vw;
+    flex: 1;
+    background-color: #F5F0CD;
+}
+
+/Message Form / 
+.MessageForm {
+  display: flex;
+  flex-direction: row;
+}
+
+.MessageInput {
+  flex: 1;
+  padding: 20px;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+.MessageInput:focus {
+  outline: none;
+}
+
+/MessageList/ 
+.MessageList {
+  flex: 1;
+  width: 75vw;
+  padding: 20px;
+  overflow: auto;
+}
+
+.Message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.MessageRight {
+  align-items: flex-end;
+}
+
+
+.Cloud {
+  padding: 10px 25px;
+  border-radius: 20px;
+  background-color: white;
+  display: block;
+  margin: 10px 20px 20px 20px;
+  border-top-left-radius: 0;
+  box-shadow: 1px 1px 2px #444;
+  word-break: break-all;
+  min-width: 20%;
+}
+
+.CloudRight {
+  border-radius: 20px;
+  border-top-right-radius: 0;
+  background-color: rgba(159, 157, 147, 0.86);
+  color: white;
+}

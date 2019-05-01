@@ -34,6 +34,7 @@ router.get('/:name', function(req, res, next) {
 							res.status(404).send("Error: no user found");
 						}else{
 						
+							res.status(200).send("New user created");
 							console.log(rows[0]);
 							//console.log(rows[0].userID); //Outputs user ID
 							//Default courses to be inserted

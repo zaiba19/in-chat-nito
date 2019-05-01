@@ -4,6 +4,8 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import MessageForm from "./components/MessageForm.jsx";
+import MessageList from "./components/MessageList.jsx";
 // import React, { Component } from 'react';
 
 import io from "socket.io-client"; 
@@ -15,8 +17,9 @@ class App extends React.Component {
     super(props); 
     this.state = {
       name: undefined,
+      activeChat: false,
       users: [],
-      courses: []
+      courses: [],
       messages: [], 
       text: '', 
       name: ''
@@ -69,13 +72,12 @@ class App extends React.Component {
       console.log(res.status)
       // if user does not exists, print error message on screen
       if(res.status === 404){
-        res.text().then(function(data) {
-          console.log(data)
-          let error = data;
+        //this.setState({ name : existing_username })
+          let error = "Error: no user found";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
-        }); 
-      }
+        }; 
+      
       // if user exists, store username in state + fetch courses -> redirects to courses page
       if(res.status === 200){
         // setting the state causes the page to be rerendered 
@@ -88,36 +90,6 @@ class App extends React.Component {
         .then(test => console.log(this.state.courses))
       }
     }) 
-
-    // fetch(`/login/${existing_username}`, {
-    //   method:'GET',
-    //   header: existing_username
-    // })
-    // .then(res=>{
-    //   res.text().then(data=> {
-    //     console.log(data)
-    //     let message = data;
-  
-    //     // if user exists -> print error message
-    //     if(message === "Error: no user found"){
-    //       // gets element with id 'signup_error" and prints the error message on the screen
-    //       document.getElementById('login_error').innerHTML = message;
-    //     }
-        
-    //     // // creates username, store new_username in state + fetch courses -> redirects to courses page
-    //     // if(message === "User has been created"){
-    //     //   this.setState({ name : new_username })
-  
-    //     //   // fetch list of courses from backend route
-    //     //   fetch('/courses')
-    //     //   .then(res => res.json())
-    //     //   .then(courses => this.setState({ courses }))
-    //     //   .then(test => console.log(this.state.courses))
-    //     // }
-    //   })
-
-    
-//})
   }
 
 
@@ -136,18 +108,19 @@ createUsername = async(u) => {
     header: new_username
   })
   .then(res=>{
-    res.text().then(data=> {
-      console.log(data)
-      let message = data;
+    console.log(res.status)
 
+    if(res.status === 404){
+      let message = "Error: Username already exists.";
       // if user exists -> print error message
-      if(message === "Error: Username already exists."){
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
-      }
       
-      // creates username, store new_username in state + fetch courses -> redirects to courses page
-      if(message === "User has been created"){
+    }
+
+    if(res.status === 200){
+      let message = "User has been created";
+         // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
 
         // fetch list of courses from backend route
@@ -156,9 +129,10 @@ createUsername = async(u) => {
         .then(courses => this.setState({ courses }))
         .then(test => console.log(this.state.courses))
       }
-    });
-  }) 
-}
+    })
+
+  }
+
 
 
 //THIS IS FOR USERS -- via users route in backend
@@ -173,19 +147,39 @@ logOut = (e) => {
   e.preventDefault();
   this.setState({
     name: undefined,
-    courses: []
+    courses: [],
+    activeChat : false,
+  })
+}
+
+switchToChat = (w) => {
+  //w.preventDefault();
+  this.setState({
+    activeChat : true,
   })
 }
 
 
-   render() {    
-     return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
-  }
+// let result = condition ? value1 : value2;
+// render() {
+//   return this.state.name === undefined ? this.renderHomePage() : this.renderChat();
+// }
 
-
-renderLayout(){
+renderHomePage(){
   return(
-    <div className={styles.MessageWrapper}>
+    <div>
+  <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+  
+      </div>
+  )
+}
+
+renderChat() {
+  return (
+    <div>
+      <h1>Chat Page</h1>
+    <Logout logOut={this.logOut}/>
+    <div className>
       <MessageList
           messages={this.state.messages}
           name = {this.state.name}
@@ -196,7 +190,71 @@ renderLayout(){
           name={this.state.name}
       />
     </div>      
-
-  ); 
+    </div>
+  );
 }
+
+renderCoursePage() {
+  return (
+    <div>
+    <Logout logOut={this.logOut}/>
+    <ClassList switchToChat={this.switchToChat} jinfo={this.state.users} courses={this.state.courses}/>
+    </div>
+  );
+}
+
+render(){
+  if(this.state.name === undefined && this.state.activeChat === false)
+    return this.renderHomePage()
+  else if(this.state.name !== undefined && this.state.activeChat === false)
+    return this.renderCoursePage()
+  else
+    return this.renderChat()
+}
+
+
+
+
+
+
+  //  render() {
+  //   if(this.state.name === undefined)
+  //     return (
+  //        <div className="wrapper">
+  //       <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+  //       {/* <Chat/> */}
+  //       </div>
+
+
+  //       );
+  //   else
+  //     return (
+  //     <div>
+  //         <Logout logOut={this.logOut}/>
+  //         <ClassList jinfo={this.state.users} courses={this.state.courses}/>
+  //     </div>
+  //     );
+  // }
+} 
+//    render() {    
+//      return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
+//   }
+
+
+// renderLayout(){
+//   return(
+//     <div className={styles.MessageWrapper}>
+//       <MessageList
+//           messages={this.state.messages}
+//           name = {this.state.name}
+//           last = {this.state.messages[this.state.messages.length-2]}
+//       />
+//       <MessageForm
+//           onMessageSubmit={message => this.handleMessageSubmit(message)}
+//           name={this.state.name}
+//       />
+//     </div>      
+
+//   ); 
+// }
 export default App;
