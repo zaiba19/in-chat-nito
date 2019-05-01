@@ -1,1 +1,1 @@
-web: concurrently  "npm start" "cd client && npm start" 
+web: npm start
