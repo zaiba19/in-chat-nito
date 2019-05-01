@@ -2,22 +2,22 @@ import React from "react";
 
 const HomePage = props => (
 <div className="login">
-		<p id="test"></p>
-	<form onSubmit = {props.getUsername}>
+
+	<form onSubmit={props.getUsername}>
 		<h4>Login</h4>
 
-		<input id='login_input' type="text" name="name" placeholder="Username..."/>
-		<button id="getData" className='btn'>Submit</button>
-		<p id="login_issue"></p>
-		<p id="test"></p>	
+		<input id='login_input' type="text" name="name" className="login-button" placeholder="Username..."/>
+		<button type="submit" id="getData" className='btn'>Submit</button>
+		<p id="login_error"></p>
 	</form>
+	
 
-
-	<form className= "SignUponSubmit" onSubmit = {props.getUsername}>
+	<form className= "SignUponSubmit" onSubmit = {props.createUsername}>
 		<h4>Sign Up</h4>
 
-		<input id='login_input' type="text" name="name" placeholder="Enter New User"/>
+		<input id='login_input' type="text" name="new_username" className="login-button" placeholder="Enter New Username"/>
 		<button id="getData" className='SignUpbtn'>Submit</button>
+		<p id="signup_error"></p>	
 	</form> 
 </div>
 	);

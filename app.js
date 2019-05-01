@@ -6,6 +6,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var signupRouter = require('./routes/signup');
+var loginRouter = require('./routes/login');
+var coursesRouter = require('./routes/courses');
 
 var app = express();
 //DATABASE
@@ -22,6 +25,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/signup', signupRouter);
+app.use('/login',loginRouter);
+app.use('/courses',coursesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,6 +43,7 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+  console.log(err);
 });
 
 module.exports = app;
@@ -52,12 +59,9 @@ var http = require('http').Server(app);
 //passing http server to socket (handles the client)
 var io = require('socket.io')(http);
 
- //instantiates io 
- var socket = io();
-
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/index.html');
+app.get('/chat', function(req, res){
+    res.sendFile(__dirname + '/client/public/index.html');
   });
 
 // // listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
@@ -67,24 +71,44 @@ app.get('/', function(req, res){
 //   });
 // }); 
 
-io.on('connection', function (socket) => {
-	require('./sockets/chat/joinedUser')(io, socket);
-  require('./sockets/chat/chatMessage')(io, socket);
-}); 
+// //to make the http server listen on port 3000 
+// http.listen(3001, function(){
+//   console.log('listening on *:3001');
+// });
 
-//to make the http server listen on port 3000 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+io.on('connection', socket => {
+  socket.on('join', name => {
+      userService.addUser({
+          id: socket.id,
+          name
+      });
+      io.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
+
+  socket.on('disconnect', () => {
+      userService.removeUser(socket.id);
+      socket.broadcast.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
+
+  socket.on('message', message => {
+      const {name} = userService.getUserById(socket.id);
+      socket.broadcast.emit('message', {
+          text: message.text,
+          from: name
+      });
+  });
+
+  socket.on('getUsers', () => {
+      io.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
 });
 
-
-//Jesse's Notes: 
-// create a socket catch handler 
-// connect and recurvsiely call itself 
-// try, fail, connect, try again, 
-
-// have gaurd rai;s; TCP 
-// test in advance for 30 connections 
-
-
- 
+server.listen(app.get('port'), () => {
+  console.log('listening on ', app.get('port'));
+});

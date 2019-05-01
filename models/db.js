@@ -3,23 +3,26 @@ var mysql = require('mysql')
 
 
 var connection = mysql.createConnection({
-	host: 'inchatnitodb.cnjllkigqfjv.us-east-1.rds.amazonaws.com',
+	host: 'inchatnito.caypex3thbml.us-east-1.rds.amazonaws.com',
+	port: '3306',
 	user: 'InchatnitoMaster',
-	password:'inchatnito',
-	database:'inchatnitodb'
+	password:'#1Inchatnito',
+	database:'inchatnito',
+	connectTimeout: 60000
 });
 
 connection.connect((err)=>{
 	if(err){
 		console.log('Error connecting to db');
 		return;
-	}
+	} else {
 	console.log('Connection extablished');
+	}
 
 });
 
 
 
-module.export=connection;
+module.exports=connection;
 //connection.end();
 
