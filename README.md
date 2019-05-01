@@ -3,14 +3,14 @@
 ## React base built according to this tutorial.
 [Create React App Express Backend](https://daveceddia.com/create-react-app-express-backend/)
 
-For those with Windows running a linux bash you can do so by installing a nodeenv environment. Follow the instructions here -> [Nodeenv](https://github.com/ekalinin/nodeenv)
+
 
 ## Run Program
 In the root directory run  
 
 `npm install`
 
-`node ./bin/www`
+`npm start`
 
 In another terminal go to _client_ folder and run 
 
@@ -20,4 +20,15 @@ In another terminal go to _client_ folder and run
 
 You should be able to access the front-end in `http://localhost:3000`
 
-I added user info on the backend to test and it can be accessed at `http://localhost:3001/users`
+
+## API Calls
+
+`/signup/<username>`  - Will create user in database and set it a userID
+
+`/login/<username>`  - Will set cookies for user if found in database.
+
+`/courses`  - Will return courses assigned to the user currently logged in. 
+
+`/logout`  - Will clear cookies for currect user
+
+`/cookies`  - Will return cookies JSON.

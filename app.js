@@ -52,27 +52,47 @@ module.exports = app;
 // SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // express initializes app to be a function handler 
-var app = require('express')();
+// var app = require('express')();
 
-//app is supplied an HTTP server 
-var http = require('http').Server(app);
+// //app is supplied an HTTP server 
+// var http = require('http').Server(app);
 
-//passing http server to socket (handles the client)
-var io = require('socket.io')(http);
+// //passing http server to socket (handles the client)
+// var io = require('socket.io')(http);
 
-//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/chat', function(req, res){
+// //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
+// // app.get('/chat', function(req, res){
+// //     res.sendFile(__dirname + '/client/public/index.html');
+// //   });
+
+//   app.use(express.static(path.join(__dirname, '/client/public/index.html')));
+
+// // listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+// io.on('connection', function(socket){
+//     socket.on('chat message', function(msg){
+//     io.emit('chat message', msg); 
+//   });
+// }); 
+
+// //to make the http server listen on port 3000 
+// http.listen(3001, function(){
+//   console.log('listening on *:3001');
+// });
+
+
+var app = require('express')();  
+var server = require('http').Server(app);  
+var io = require('socket.io')(server);
+
+app.get('/chat', function(req, res) {  
     res.sendFile(__dirname + '/client/public/index.html');
-  });
-
-// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-    io.emit('chat message', msg); 
-  });
-}); 
-
-//to make the http server listen on port 3000 
-http.listen(3001, function(){
-  console.log('listening on *:3001');
 });
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/signup', signupRouter);
+app.use('/login',loginRouter);
+app.use('/courses',coursesRouter);
+
+
+server.listen(3001); 

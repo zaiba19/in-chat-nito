@@ -35,14 +35,12 @@ class App extends React.Component {
       console.log(res.status)
       // if user does not exists, print error message on screen
       if(res.status === 404){
-        this.setState({ name : existing_username })
-        res.text().then(function(data) {
-          console.log(data)
-          let error = data;
+        //this.setState({ name : existing_username })
+          let error = "Error: no user found";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
-        }); 
-      }
+        }; 
+      
       // if user exists, store username in state + fetch courses -> redirects to courses page
       if(res.status === 200){
         // setting the state causes the page to be rerendered 
@@ -55,36 +53,6 @@ class App extends React.Component {
         .then(test => console.log(this.state.courses))
       }
     }) 
-
-    // fetch(`/login/${existing_username}`, {
-    //   method:'GET',
-    //   header: existing_username
-    // })
-    // .then(res=>{
-    //   res.text().then(data=> {
-    //     console.log(data)
-    //     let message = data;
-  
-    //     // if user exists -> print error message
-    //     if(message === "Error: no user found"){
-    //       // gets element with id 'signup_error" and prints the error message on the screen
-    //       document.getElementById('login_error').innerHTML = message;
-    //     }
-        
-    //     // // creates username, store new_username in state + fetch courses -> redirects to courses page
-    //     // if(message === "User has been created"){
-    //     //   this.setState({ name : new_username })
-  
-    //     //   // fetch list of courses from backend route
-    //     //   fetch('/courses')
-    //     //   .then(res => res.json())
-    //     //   .then(courses => this.setState({ courses }))
-    //     //   .then(test => console.log(this.state.courses))
-    //     // }
-    //   })
-
-    
-//})
   }
 
 
@@ -103,18 +71,19 @@ createUsername = async(u) => {
     header: new_username
   })
   .then(res=>{
-    res.text().then(data=> {
-      console.log(data)
-      let message = data;
+    console.log(res.status)
 
+    if(res.status === 404){
+      let message = "Error: Username already exists.";
       // if user exists -> print error message
-      if(message === "Error: Username already exists."){
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
-      }
       
-      // creates username, store new_username in state + fetch courses -> redirects to courses page
-      if(message === "User has been created"){
+    }
+
+    if(res.status === 200){
+      let message = "User has been created";
+         // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
 
         // fetch list of courses from backend route
@@ -123,9 +92,10 @@ createUsername = async(u) => {
         .then(courses => this.setState({ courses }))
         .then(test => console.log(this.state.courses))
       }
-    });
-  }) 
-}
+    })
+
+  }
+
 
 
 //THIS IS FOR USERS -- via users route in backend
@@ -185,7 +155,7 @@ renderCoursePage() {
 render(){
   if(this.state.name === undefined && this.state.activeChat === false)
     return this.renderHomePage()
-  else if(this.state.name != undefined && this.state.activeChat === false)
+  else if(this.state.name !== undefined && this.state.activeChat === false)
     return this.renderCoursePage()
   else
     return this.renderChat()
