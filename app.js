@@ -8,7 +8,6 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
-var cookiesRouter = require('./routes/cookies');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
 
