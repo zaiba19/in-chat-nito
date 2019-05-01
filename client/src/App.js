@@ -4,19 +4,53 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
-import Chat from "./components/Chat"
 // import React, { Component } from 'react';
+
+import io from "socket.io-client"; 
+const socket = io('/')
 
 
 class App extends React.Component {
-
-    state = {
+  constructor(props) {
+    super(props); 
+    this.state = {
       name: undefined,
       users: [],
       courses: [],
-      activeChat : false
-    }
+      messages: [], 
+      text: '', 
+      name: ''
+    }; 
+  }
 
+  componentDidMount(){
+    socket.on('message', message => this.messageReceive(message));
+    socket.on('update', ({users}) => this.chatUpdate(users));
+  }
+
+  messageReceive(message) {
+    const messages = [...this.state.messages, message];
+    this.setState({messages})
+  }
+
+  chatUpdate(users) {
+    this.setState({users});
+  }
+
+  handleUserSubmit(name) {
+    if(name) {
+        this.setState({name});
+        socket.emit('join', name);
+    }
+}
+
+  handleMessageSubmit(message) {
+    if (message.text) {
+        const messages = [...this.state.messages, message];
+        this.setState({messages});
+        socket.emit('message', message);
+    }
+  }
 
   // FUNCTION FOR LOGIN BUTTON -- NEEDS MODIFICATION
   getUsername = async(event) => {
@@ -138,7 +172,17 @@ renderChat() {
   return (
     <div>
     <Logout logOut={this.logOut}/>
-    <Chat/>
+    <div className={styles.MessageWrapper}>
+      <MessageList
+          messages={this.state.messages}
+          name = {this.state.name}
+          last = {this.state.messages[this.state.messages.length-2]}
+      />
+      <MessageForm
+          onMessageSubmit={message => this.handleMessageSubmit(message)}
+          name={this.state.name}
+      />
+    </div>      
     </div>
   );
 }
@@ -185,4 +229,25 @@ render(){
   //     );
   // }
 } 
+//    render() {    
+//      return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
+//   }
+
+
+// renderLayout(){
+//   return(
+//     <div className={styles.MessageWrapper}>
+//       <MessageList
+//           messages={this.state.messages}
+//           name = {this.state.name}
+//           last = {this.state.messages[this.state.messages.length-2]}
+//       />
+//       <MessageForm
+//           onMessageSubmit={message => this.handleMessageSubmit(message)}
+//           name={this.state.name}
+//       />
+//     </div>      
+
+//   ); 
+// }
 export default App;

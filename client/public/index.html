@@ -7,6 +7,13 @@
       box-sizing: border-box;
       transition: all .3s ease;
     }
+
+    .MessageList {
+    flex: 1;
+    width: 75vw;
+    padding: 20px;
+    overflow: auto;
+}
     
    html, body {
       background: #92dcd1;
@@ -23,17 +30,8 @@
       font-family: Helvetica, Arial, Sans, sans-serif;
     }
     
-    h1, .user-count {
-      margin: 0;
-      padding: 10px 0;
-      font-size: 32px;
-    }
     
-    .user-count {
-      float: right;
-    }
-    
-    .chat message {
+    .Message {
       content: '';
       width: 100%;
       height: calc(100vh - 165px);
@@ -54,7 +52,7 @@
       padding: 5px 10px;
     }
     
-    button:hover {
+    /* button:hover {
       cursor: pointer;
       background: #ddd;
     }
@@ -70,7 +68,26 @@
         float: right;
         width: 150px;
       }
-    } 
+    }  */
+
+    .Cloud {
+    padding: 10px 25px;
+    border-radius: 20px;
+    background-color: white;
+    display: block;
+    margin: 10px 20px 20px 20px;
+    border-top-left-radius: 0;
+    box-shadow: 1px 1px 2px #444;
+    word-break: break-all;
+    min-width: 20%;
+}
+
+.CloudRight {
+    border-radius: 20px;
+    border-top-right-radius: 0;
+    background-color: rgba(159, 157, 147, 0.86);
+    color: white;
+}
         </style>
       </head>
   <body>
@@ -78,7 +95,6 @@
 
     <!-- <main>
         <header>
-          <div class="user-count">0</div>
           <h1>In-Chat-Nido</h1>
         </header>
       
@@ -112,19 +128,3 @@
   
  </body>
 </html> 
-
-
- <!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>InChatNito</title>
-</head>
-<body>
-    <div id="root"></div>
-    
-</body>
-</html> -->
- 

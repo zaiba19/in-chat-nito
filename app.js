@@ -13,7 +13,6 @@ var coursesRouter = require('./routes/courses');
 var app = express();
 //DATABASE
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -84,8 +83,58 @@ var app = require('express')();
 var server = require('http').Server(app);  
 var io = require('socket.io')(server);
 
-app.get('/chat', function(req, res) {  
+//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
+app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
+  });
+
+// // listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
+// io.on('connection', function(socket){
+//     socket.on('chat message', function(msg){
+//     io.emit('chat message', msg); 
+//   });
+// }); 
+
+// //to make the http server listen on port 3000 
+// http.listen(3001, function(){
+//   console.log('listening on *:3001');
+// });
+
+io.on('connection', socket => {
+  socket.on('join', name => {
+      userService.addUser({
+          id: socket.id,
+          name
+      });
+      io.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
+
+  socket.on('disconnect', () => {
+      userService.removeUser(socket.id);
+      socket.broadcast.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
+
+  socket.on('message', message => {
+      const {name} = userService.getUserById(socket.id);
+      socket.broadcast.emit('message', {
+          text: message.text,
+          from: name
+      });
+  });
+
+  socket.on('getUsers', () => {
+      io.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
+});
+
+server.listen(app.get('port'), () => {
+  console.log('listening on ', app.get('port'));
 });
 
 app.use('/', indexRouter);
@@ -95,4 +144,4 @@ app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
 
 
-server.listen(3001); 
+//server.listen(3001); 

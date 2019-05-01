@@ -5,12 +5,11 @@ import './index.css';
 import * as serviceWorker from './serviceWorker'; 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-
 import ClassList from './components/ClassList';
 import HomePage from './components/HomePage';
 import CourseCreate from './components/CourseCreate';
 import JoinCourse from './components/JoinCourse';
-import Chat from './components/Chat';
+//import Chat from '../../public/Chat';
 
 
 // ReactDOM.render(
@@ -30,12 +29,11 @@ import Chat from './components/Chat';
 //            <Route path="/courses" component={ClassList}/>
 //            {/* <Route path="/join" component={JoinCourse}/> */}
 //            {/* <Route path="/create" component={CourseCreate}/> */}
-//            <Route path="/chat"  component={Chat}/> 
+//            {/* <Route path="/chat"  component={Chat}/>  */}
 //        </div>
 //     </Router>,
 //     document.getElementById('root')
 //   )
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
