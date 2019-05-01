@@ -61,7 +61,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/', function(req, res){
+app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
   });
 

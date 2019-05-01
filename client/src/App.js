@@ -13,7 +13,8 @@ class App extends React.Component {
     state = {
       name: undefined,
       users: [],
-      courses: []
+      courses: [],
+      activeChat : false
     }
 
 
@@ -34,6 +35,7 @@ class App extends React.Component {
       console.log(res.status)
       // if user does not exists, print error message on screen
       if(res.status === 404){
+        this.setState({ name : existing_username })
         res.text().then(function(data) {
           console.log(data)
           let error = data;
@@ -138,29 +140,79 @@ logOut = (e) => {
   e.preventDefault();
   this.setState({
     name: undefined,
-    courses: []
+    courses: [],
+    activeChat : false,
+  })
+}
+
+switchToChat = (w) => {
+  //w.preventDefault();
+  this.setState({
+    activeChat : true,
   })
 }
 
 
-   render() {
-	
-    if(this.state.name === undefined)
-      return (
-         <div className="wrapper">
-        <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-        {/* <Chat/> */}
-        </div>
+// let result = condition ? value1 : value2;
+// render() {
+//   return this.state.name === undefined ? this.renderHomePage() : this.renderChat();
+// }
+
+renderHomePage(){
+  return(
+  <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+  )
+}
+
+renderChat() {
+  return (
+    <div>
+    <Logout logOut={this.logOut}/>
+    <Chat/>
+    </div>
+  );
+}
+
+renderCoursePage() {
+  return (
+    <div>
+    <Logout logOut={this.logOut}/>
+    <ClassList switchToChat={this.switchToChat} jinfo={this.state.users} courses={this.state.courses}/>
+    </div>
+  );
+}
+
+render(){
+  if(this.state.name === undefined && this.state.activeChat === false)
+    return this.renderHomePage()
+  else if(this.state.name != undefined && this.state.activeChat === false)
+    return this.renderCoursePage()
+  else
+    return this.renderChat()
+}
 
 
-        );
-    else
-      return (
-      <div>
-          <Logout logOut={this.logOut}/>
-          <ClassList jinfo={this.state.users} courses={this.state.courses}/>
-      </div>
-      );
-  }
+
+
+
+
+  //  render() {
+  //   if(this.state.name === undefined)
+  //     return (
+  //        <div className="wrapper">
+  //       <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+  //       {/* <Chat/> */}
+  //       </div>
+
+
+  //       );
+  //   else
+  //     return (
+  //     <div>
+  //         <Logout logOut={this.logOut}/>
+  //         <ClassList jinfo={this.state.users} courses={this.state.courses}/>
+  //     </div>
+  //     );
+  // }
 } 
 export default App;

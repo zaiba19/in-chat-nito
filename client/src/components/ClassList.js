@@ -4,9 +4,10 @@ import Button from 'react-bootstrap/Button';
 
 const ClassList1 = props => (
 	<div>
+			<h2>Here are the courses you are enrolled in: </h2>
 
 	<div className = "courses_sec">
-	<center><Button className = "courses_btn" >
+	<center><Button className = "courses_btn" onClick={() => { props.switchToChat() }}>
 Web Development	</Button> </center>
 	&nbsp;&nbsp;&nbsp;
 
@@ -60,4 +61,4 @@ function ClassList(props) {
   }
 
 
-export default ClassList;
+export default ClassList1;
