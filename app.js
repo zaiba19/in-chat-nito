@@ -11,7 +11,13 @@ var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
-var app = express();
+
+var app = require('express')();  
+var server = require('http').Server(app);  
+var io = require('socket.io')(server);
+
+
+//var app = express();
 //DATABASE
 
 // view engine setup
@@ -87,9 +93,7 @@ module.exports = app;
 // });
 
 
-var app = require('express')();  
-var server = require('http').Server(app);  
-var io = require('socket.io')(server);
+
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
