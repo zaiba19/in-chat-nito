@@ -246,14 +246,22 @@ body {
 }
 
 .MessageWrapper {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     width: 75vw;
-    flex: 1;
-    background-color: #F5F0CD;
+    flex: 1; */
+    background-color: rgb(241, 241, 241);
+
+    /* align-content: center;
+    position: fixed;
+    top: 50%;
+    left: 50%; */
+    margin: auto;
+  width: 50%;
 }
 
-/Message Form / 
+
+/* /Message Form /  */
 .MessageForm {
   display: flex;
   flex-direction: row;
@@ -270,22 +278,26 @@ body {
   outline: none;
 }
 
-/MessageList/ 
+/* /MessageList/  */
 .MessageList {
-  flex: 1;
+  /* flex: 1;
   width: 75vw;
   padding: 20px;
-  overflow: auto;
+  overflow: auto; */
+
+  margin: auto;
+  width: 100%;
 }
 
 .Message {
-  display: flex;
+   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; 
 }
 
 .MessageRight {
-  align-items: flex-end;
+   align-items: flex-end;
+  align-content: right;
 }
 
 
@@ -305,5 +317,7 @@ body {
   border-radius: 20px;
   border-top-right-radius: 0;
   background-color: rgba(159, 157, 147, 0.86);
+  background-color: blue;
   color: white;
 }
+

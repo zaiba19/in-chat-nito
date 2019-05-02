@@ -8,6 +8,7 @@ import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
 // import React, { Component } from 'react';
 
+
 import io from "socket.io-client"; 
 const socket = io('/')
 
@@ -22,7 +23,7 @@ class App extends React.Component {
       courses: [],
       messages: [], 
       text: '', 
-      name: ''
+      //name: ''
     }; 
   }
 
@@ -177,9 +178,9 @@ renderHomePage(){
 renderChat() {
   return (
     <div>
-      <h1>Chat Page</h1>
+      <h4>Chat Page</h4>
     <Logout logOut={this.logOut}/>
-    <div className>
+    <div className = "MessageWrapper">
       <MessageList
           messages={this.state.messages}
           name = {this.state.name}
@@ -195,8 +196,9 @@ renderChat() {
 }
 
 renderCoursePage() {
+  console.log(this.state)
   return (
-    <div>
+    <div>  
     <Logout logOut={this.logOut}/>
     <ClassList switchToChat={this.switchToChat} jinfo={this.state.users} courses={this.state.courses}/>
     </div>

@@ -30,11 +30,11 @@ class MessageForm extends Component {
 
     render() {
         return (
-            <form 
+            <form className = "MessageForm"
                 onSubmit = { e => this.handleSubmit(e)}
             >
                 <input 
-                    
+                    className = "MessageInput"
                     onChange = { e => this.handleChange(e)}
                     value = { this.state.text}
                     placeholder = 'Message'
