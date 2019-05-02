@@ -19,22 +19,22 @@ router.get('/:name', function(req, res, next) {
 			//console.log("error: ",err);
 		    //throw err;//result(err,null);
 			//res.statusCode=404;
-			res.status(404).send("Error: Username already exists.");
+			res.status(404).send("Username Already Exists.");
 			
 		}
 		else {
-						//looks for user in db
+						//looks for user in db to ensure it doesn't exist
 						conn.query('SELECT * FROM user_table WHERE username= ?',username,function(erro,rows){
 									
 						if(erro){
-							res.status(404).send("Error: no user found");
+							res.status(404).send("User not found");
 						}
 
 						if(rows.length === 0){
-							res.status(404).send("Error: no user found");
+							res.status(404).send("User not found");
 						}else{
 						
-							res.status(200).send("New user created");
+							res.status(200).send("New User Created");
 							console.log(rows[0]);
 							//console.log(rows[0].userID); //Outputs user ID
 							//Default courses to be inserted
@@ -52,7 +52,7 @@ router.get('/:name', function(req, res, next) {
 									res.status(404).send("Error: Could not enter default courses");
 								}else{
 
-									res.status(200).send("User Created and Default classes added");
+									res.status(200).send("User Created and Default Classes Added");
 								}
 								
 								
