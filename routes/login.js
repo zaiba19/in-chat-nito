@@ -17,17 +17,13 @@ router.get('/:name', function(req, res, next) {
         //runs if err has input after select user
 
         if(err){
-
-
-
-            res.status(404).send("Error: no user found");
-
+            res.status(404).send("User Does Not Exist");
         }
 
         if(rows.length === 0){
             //console.log("This row is empty!");
 
-            res.status(404).send("Error: no user found");
+            res.status(404).send("User Does Not Exist");
         }
         else{
 
@@ -38,7 +34,7 @@ router.get('/:name', function(req, res, next) {
             res.cookie('userID', (rows[0].userID).toString());
             res.cookie('username',(rows[0].username).toString());
             //console.log(req.cookies);
-            res.status(200).send("User Log In Succesful");
+            res.status(200).send("User Login Succesful");
 
 
 

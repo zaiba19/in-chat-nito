@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 			res.status(200).send("Cookie cleared");
 			//throw new Error('Cookie not cleared');
 	}else{
-			res.status(404).send("Error: No cookies found");
+			res.status(404).send("No User Signed In");
 			
 	}
 	

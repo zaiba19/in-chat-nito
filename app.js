@@ -9,11 +9,15 @@ var usersRouter = require('./routes/users');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
+var logoutRouter = require('./routes/logout');
+var cookieRouter = require('./routes/cookie');
+
 
 var server = require('http').Server(express);  
 var io = require('socket.io')(server);
 
 var app = express();
+
 //DATABASE
 
 // view engine setup
@@ -25,13 +29,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client','build')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
+
+app.get('/*',function(req, res, next) {
+	res.sendFile(path.join(__dirname,'client','build','index.html'));
+});
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -87,10 +98,12 @@ app.use(function(err, req, res, next) {
 // });
 
 
+
 //var app = require('express')();  
 
 const UsersService = require('./UsersService')
 const userService = new UsersService();
+
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
