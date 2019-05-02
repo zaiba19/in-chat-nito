@@ -28,7 +28,6 @@ var conn=db;
 
 router.get('/', function(req, res, next) {
 
-	console.log(req.params.name);
 	var userID =req.cookies.userID; //req.cookie.userID;
 	console.log(userID);
 	

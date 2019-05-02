@@ -13,16 +13,24 @@ var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
 
 
-var server = require('http').Server(express);  
-var io = require('socket.io')(server);
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server); 
 
-var app = express();
+
+const UsersService = require('./UsersService')
+const userService = new UsersService();
 
 //DATABASE
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+
+server.listen(3001, function(){
+  console.log('listening on *:3001');
+});
 
 
 app.use(logger('dev'));
@@ -101,8 +109,6 @@ app.use(function(err, req, res, next) {
 
 //var app = require('express')();  
 
-const UsersService = require('./UsersService')
-const userService = new UsersService();
 
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
@@ -161,9 +167,10 @@ io.on('connection', socket => {
 // server.listen(app.get('port'), () => {
 //   console.log('listening on ', app.get('port'));
 // });
-server.listen(3001, function(){
-    console.log('listening on *:3001');
-  });
+
+/*server.listen(3001, function(){
+  console.log('listening on *:3001');
+}); */
 
 
 //server.listen(3001); 
