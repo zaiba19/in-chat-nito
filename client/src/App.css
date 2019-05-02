@@ -253,7 +253,7 @@ body {
     background-color: #F5F0CD;
 }
 
-/Message Form / 
+
 .MessageForm {
   display: flex;
   flex-direction: row;
@@ -270,7 +270,7 @@ body {
   outline: none;
 }
 
-/MessageList/ 
+
 .MessageList {
   flex: 1;
   width: 75vw;

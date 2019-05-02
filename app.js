@@ -12,17 +12,18 @@ var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
 
-var app = require('express')();  
-var server = require('http').Server(app);  
+
+var server = require('http').Server(express);  
 var io = require('socket.io')(server);
 
+var app = express();
 
-//var app = express();
 //DATABASE
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -56,11 +57,15 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+    });
+  //res.send('error');
   console.log(err);
 });
 
-module.exports = app;
+//module.exports = app;
 
 // SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -94,6 +99,11 @@ module.exports = app;
 
 
 
+//var app = require('express')();  
+
+const UsersService = require('./UsersService')
+const userService = new UsersService();
+
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
@@ -122,6 +132,9 @@ io.on('connection', socket => {
           users: userService.getAllUsers()
       });
   });
+
+//need a factory to create a singleton 
+
 
   // socket.on('disconnect', () => {
   //     userService.removeUser(socket.id);
@@ -152,11 +165,6 @@ server.listen(3001, function(){
     console.log('listening on *:3001');
   });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/signup', signupRouter);
-app.use('/login',loginRouter);
-app.use('/courses',coursesRouter);
-
 
 //server.listen(3001); 
+module.exports = app;
