@@ -8,6 +8,7 @@ import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
 // import React, { Component } from 'react';
 
+
 import io from "socket.io-client"; 
 const socket = io('/')
 
@@ -22,7 +23,7 @@ class App extends React.Component {
       courses: [],
       messages: [], 
       text: '', 
-      name: ''
+      //name: ''
     }; 
   }
 
@@ -120,14 +121,17 @@ createUsername = async(u) => {
 
     if(res.status === 200){
       let message = "User has been created";
+
+      // fetch list of courses from backend route
+      fetch('/courses')
+      .then(res => res.json())
+      .then(courses => this.setState({ courses }))
+      .then(test => console.log(this.state.courses))
+      
          // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
 
-        // fetch list of courses from backend route
-        fetch('/courses')
-        .then(res => res.json())
-        .then(courses => this.setState({ courses }))
-        .then(test => console.log(this.state.courses))
+        
       }
     })
 
@@ -177,9 +181,9 @@ renderHomePage(){
 renderChat() {
   return (
     <div>
-      <h1>Chat Page</h1>
+      <h4>Chat Page</h4>
     <Logout logOut={this.logOut}/>
-    <div className>
+    <div className = "MessageWrapper">
       <MessageList
           messages={this.state.messages}
           name = {this.state.name}
@@ -195,10 +199,11 @@ renderChat() {
 }
 
 renderCoursePage() {
+  // console.log(this.state)
   return (
-    <div>
+    <div>  
     <Logout logOut={this.logOut}/>
-    <ClassList switchToChat={this.switchToChat} jinfo={this.state.users} courses={this.state.courses}/>
+    <ClassList switchToChat={this.switchToChat} courses={this.state.courses}/>
     </div>
   );
 }

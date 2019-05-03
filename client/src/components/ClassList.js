@@ -53,7 +53,7 @@ function ClassList(props) {
 			<h2>Here are the courses you are enrolled in: </h2>
 			<div className = "courses_sec">
 				{props.courses.map(course=>{
-					return <Button className="courses_btn" style={styles} key={course.id} >{course.name}</Button>
+					return <Button className="courses_btn" onClick={() => { props.switchToChat() }} style={styles} key={course.id} >{course.courseName}</Button>
 				})}
 			</div>
 		 </div>
@@ -61,4 +61,4 @@ function ClassList(props) {
   }
 
 
-export default ClassList1;
+export default ClassList;
