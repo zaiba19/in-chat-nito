@@ -121,14 +121,17 @@ createUsername = async(u) => {
 
     if(res.status === 200){
       let message = "User has been created";
+
+      // fetch list of courses from backend route
+      fetch('/courses')
+      .then(res => res.json())
+      .then(courses => this.setState({ courses }))
+      .then(test => console.log(this.state.courses))
+      
          // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
 
-        // fetch list of courses from backend route
-        fetch('/courses')
-        .then(res => res.json())
-        .then(courses => this.setState({ courses }))
-        .then(test => console.log(this.state.courses))
+        
       }
     })
 
@@ -196,7 +199,7 @@ renderChat() {
 }
 
 renderCoursePage() {
-  console.log(this.state)
+  // console.log(this.state)
   return (
     <div>  
     <Logout logOut={this.logOut}/>
