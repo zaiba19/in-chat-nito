@@ -200,7 +200,7 @@ renderCoursePage() {
   return (
     <div>  
     <Logout logOut={this.logOut}/>
-    <ClassList switchToChat={this.switchToChat} jinfo={this.state.users} courses={this.state.courses}/>
+    <ClassList switchToChat={this.switchToChat} courses={this.state.courses}/>
     </div>
   );
 }
