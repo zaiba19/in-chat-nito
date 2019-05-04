@@ -116,17 +116,6 @@ app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
   });
 
-// // listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-// io.on('connection', function(socket){
-//     socket.on('chat message', function(msg){
-//     io.emit('chat message', msg); 
-//   });
-// }); 
-
-// //to make the http server listen on port 3000 
-// http.listen(3001, function(){
-//   console.log('listening on *:3001');
-// });
 
 io.on('connection', socket => {
   socket.on('join', name => {
@@ -142,15 +131,16 @@ io.on('connection', socket => {
 //need a factory to create a singleton 
 
 
-  // socket.on('disconnect', () => {
-  //     userService.removeUser(socket.id);
-  //     socket.broadcast.emit('update', {
-  //         users: userService.getAllUsers()
-  //     });
-  // });
+  socket.on('disconnect', () => {
+      userService.removeUser(socket.id);
+      socket.broadcast.emit('update', {
+          users: userService.getAllUsers()
+      });
+  });
 
   socket.on('message', message => {
       const {name} = userService.getUserById(socket.id);
+      // console.log(name);
       socket.broadcast.emit('message', {
           text: message.text,
           from: name

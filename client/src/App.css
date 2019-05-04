@@ -320,3 +320,40 @@ body {
   background-color: blue;
   color: white;
 }
+
+/* -- USERS LIST -- */
+
+.Users {
+  display: flex;
+  flex: 1;
+  width: 25vw;
+  justify-content: flex-start;
+  flex-direction: column;
+  border-right: 1px solid #ccc;
+  background-color: #868471;
+  color: white;
+}
+
+.UsersOnline {
+  padding: 20px;
+  text-align: center;
+  background: rgba(189, 189, 189, 0.45);
+}
+
+.UsersList {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.UserItem {
+  list-style: none;
+  border-bottom: 1px solid #ccc;
+  padding: 20px;
+  margin: 0 0 0 20px;
+}
+
+.UserItem > small {
+  color: #2b2b2b;
+  font-weight: 700;
+}
