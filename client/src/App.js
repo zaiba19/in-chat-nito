@@ -6,6 +6,7 @@ import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
 import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
+import UsersList from "./components/UsersList.jsx";
 // import React, { Component } from 'react';
 
 
@@ -83,6 +84,8 @@ class App extends React.Component {
       if(res.status === 200){
         // setting the state causes the page to be rerendered 
         this.setState({ name : existing_username })
+        this.handleUserSubmit(existing_username);
+        console.log(this.state.users);
 
         // fetch list of courses from backend route
         fetch('/courses')
@@ -127,7 +130,7 @@ createUsername = async(u) => {
       .then(res => res.json())
       .then(courses => this.setState({ courses }))
       .then(test => console.log(this.state.courses))
-      
+
          // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
 
@@ -183,6 +186,10 @@ renderChat() {
     <div>
       <h4>Chat Page</h4>
     <Logout logOut={this.logOut}/>
+      <UsersList
+        users={this.state.users}
+        name = {this.state.name}
+        />
     <div className = "MessageWrapper">
       <MessageList
           messages={this.state.messages}
