@@ -151,6 +151,7 @@ io.on('connection', socket => {
 
   socket.on('message', message => {
       const {name} = userService.getUserById(socket.id);
+      // console.log(name);
       socket.broadcast.emit('message', {
           text: message.text,
           from: name

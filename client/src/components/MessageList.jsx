@@ -6,6 +6,7 @@ import styles from '../App.css';
 const Message = props => (
     <div className="Message + (props.from === props.name ? ' ' + MessageRight : '')">
         {/* group messages from which user they are */}
+        {/* <strong>{(props.last === props.from) ? '' :(props.from === props.name ? 'You' : props.from)}</strong> */}
         <strong>{(props.last === props.from) ? '' :(props.from === props.name ? 'You' : props.from)}</strong>
         {/* <span className = {styles.Cloud + (props.from === props.name ? ' ' + styles.CloudRight : '')}>{props.text}</span> */}
         <span className = "Cloud + (props.from === props.name ? ' ' + CloudRight : '')">{props.text}</span>
