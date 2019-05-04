@@ -24,8 +24,8 @@ class App extends React.Component {
       courses: [],
       messages: [], 
       text: '', 
-      //name: ''
     }; 
+    this.onDisconnectStatus = '';
   }
 
   componentDidMount(){
@@ -85,6 +85,8 @@ class App extends React.Component {
         // setting the state causes the page to be rerendered 
         this.setState({ name : existing_username })
         this.handleUserSubmit(existing_username);
+        //this.onDisconnectStatus(); 
+
         console.log(this.state.users);
 
         // fetch list of courses from backend route
@@ -151,11 +153,15 @@ createUsername = async(u) => {
   } */
  
 logOut = (e) => {
-  e.preventDefault();
-  this.setState({
-    name: undefined,
-    courses: [],
-    activeChat : false,
+  socket.on('disconnect', () => { 
+    this.setState({
+        users: [],
+        activeChat : false,
+        courses : [], 
+        messages: [],
+        text: '',
+        name: undefined
+    });
   })
 }
 
