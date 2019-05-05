@@ -1,6 +1,7 @@
 class UsersService {
     constructor() {
-        this.users =[] ;
+        this.users =[],
+        this.room=0
     }
 
     getAllUsers() {
@@ -18,6 +19,8 @@ class UsersService {
     removeUser(userId) {
         this.users = this.users.filter(user => user.id !== userId);
     }
+    
+
 }
 
 module.exports = UsersService;
