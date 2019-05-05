@@ -10,22 +10,22 @@ import UsersList from "./components/UsersList.jsx";
 // import React, { Component } from 'react';
 
 
-import io from "socket.io-client"; 
+import io from "socket.io-client";
 const socket = io('/')
 
 
 class App extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       name: undefined,
       activeChat: false,
       users: [],
       courses: [],
-      messages: [], 
-      text: '', 
+      messages: [],
+      text: '',
       room: ''
-    }; 
+    };
     this.onDisconnectStatus = '';
   }
 
@@ -87,11 +87,11 @@ class App extends React.Component {
           let error = "Error: no user found";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
-        }; 
-      
+        };
+
       // if user exists, store username in state + fetch courses -> redirects to courses page
       if(res.status === 200){
-        // setting the state causes the page to be rerendered 
+        // setting the state causes the page to be rerendered
         this.setState({ name : existing_username })
         this.handleUserSubmit(existing_username);
 
@@ -101,7 +101,7 @@ class App extends React.Component {
         .then(courses => this.setState({ courses }))
         .then(test => console.log(this.state.courses))
       }
-    }) 
+    })
   }
 
 
@@ -127,7 +127,7 @@ createUsername = async(u) => {
       // if user exists -> print error message
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
-      
+
     }
 
     if(res.status === 200){
@@ -143,18 +143,18 @@ createUsername = async(u) => {
         this.setState({ name : new_username })
         this.handleUserSubmit(new_username);
 
-        
+
       }
     })
 
   }
 
 logOut = (e) => {
-  socket.on('disconnect', () => { 
+  socket.on('disconnect', () => {
     this.setState({
         users: [],
         activeChat : false,
-        courses : [], 
+        courses : [],
         messages: [],
         text: '',
         name: undefined
@@ -178,7 +178,7 @@ switchToChat = (w) => {
 
 renderHomePage(){
   return(
-    <div>
+    <div className="wrapper">
       <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
     </div>
   )
@@ -204,7 +204,7 @@ renderChat() {
           onMessageSubmit={message => this.handleMessageSubmit(message)}
           name={this.state.name}
       />
-    </div>      
+    </div>
     </div>
   );
 }
@@ -212,7 +212,7 @@ renderChat() {
 renderCoursePage() {
   // console.log(this.state)
   return (
-    <div>  
+    <div>
     <Logout logOut={this.logOut}/>
     <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick}/>
     </div>
