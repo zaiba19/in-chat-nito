@@ -20,10 +20,12 @@ class App extends React.Component {
     this.state = {
       name: undefined,
       activeChat: false,
+      courseID:0,
       users: [],
       courses: [],
       messages: [], 
       text: '', 
+     
     }; 
     this.onDisconnectStatus = '';
   }
@@ -45,7 +47,7 @@ class App extends React.Component {
   handleUserSubmit(name) {
     if(name) {
         this.setState({name});
-        socket.emit('join', name);
+       // socket.emit('join', name);
     }
 }
 
@@ -165,11 +167,20 @@ logOut = (e) => {
   })
 }
 
-switchToChat = (w) => {
+switchToChat = (course) => {
   //w.preventDefault();
+  //console.log(JSON.stringify(course));
   this.setState({
+    courseID:course.courseID,
     activeChat : true,
+    
   })
+ 
+  socket.emit('join',course.courseID , this.state.name);
+ //this.handleUserSubmit(this.set.name);
+  console.log(this.state.name);
+  
+ // console.log(courseID);
 }
 
 
@@ -196,11 +207,13 @@ renderChat() {
         users={this.state.users}
         name = {this.state.name}
         />
+  
     <div className = "MessageWrapper">
       <MessageList
           messages={this.state.messages}
           name = {this.state.name}
           last = {this.state.messages[this.state.messages.length-2]}
+          
       />
       <MessageForm
           onMessageSubmit={message => this.handleMessageSubmit(message)}
@@ -212,7 +225,7 @@ renderChat() {
 }
 
 renderCoursePage() {
-  // console.log(this.state)
+  
   return (
     <div>  
     <Logout logOut={this.logOut}/>

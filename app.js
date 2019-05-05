@@ -13,13 +13,14 @@ var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
 
 
+
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server); 
 
 
 const UsersService = require('./UsersService')
-const userService = new UsersService();
+const userService = new UsersService(); 
 
 //DATABASE
 
@@ -44,11 +45,12 @@ app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
+app.use('/logout',logoutRouter);
+app.use('/cookies',cookieRouter);
 
 app.get('/*',function(req, res, next) {
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
 });
-
 
 
 
@@ -73,42 +75,9 @@ app.use(function(err, req, res, next) {
   console.log(err);
 });
 
-//module.exports = app;
+
 
 // SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//express initializes app to be a function handler 
-// var app = require('express')();
-
-// //app is supplied an HTTP server 
-// var http = require('http').Server(app);
-
-// //passing http server to socket (handles the client)
-// var io = require('socket.io')(http);
-
-//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-// app.get('/chat', function(req, res){
-//     res.sendFile(__dirname + '/client/public/index.html');
-//   });
-
-  //app.use(express.static(path.join(__dirname, '/client/public/index.html')));
-
-// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-// io.on('connection', function(socket){
-//     socket.on('chat message', function(msg){
-//     io.emit('chat message', msg); 
-//   });
-// }); 
-
-//to make the http server listen on port 3000 
-// http.listen(3001, function(){
-//   console.log('listening on *:3001');
-// });
-
-
-
-//var app = require('express')();  
-
 
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
@@ -118,13 +87,23 @@ app.get('/chat', function(req, res){
 
 
 io.on('connection', socket => {
-  socket.on('join', name => {
-      userService.addUser({
+  socket.on('join', (courseID , name) => {
+    socket.room=courseID;
+    const temp =new UsersService();
+    temp.room=socket.room;
+    console.log(temp.room);
+      userService['room']=temp ;
+      //userService[socket.room]= new UsersService();
+      userService[socket.room].addUser({
           id: socket.id,
           name
       });
+       
+      socket.join(courseID);
+       console.log("Name: "+ name+" Room: " +socket.room);
+
       io.emit('update', {
-          users: userService.getAllUsers()
+          users: userService[socket.room].getAllUsers()
       });
   });
 
@@ -132,16 +111,16 @@ io.on('connection', socket => {
 
 
   socket.on('disconnect', () => {
-      userService.removeUser(socket.id);
-      socket.broadcast.emit('update', {
-          users: userService.getAllUsers()
+      userService[socket.room].removeUser(socket.id);
+      io.to(socket.room).emit('update', {
+          users: userService[socket.room].getAllUsers()
       });
   });
 
   socket.on('message', message => {
-      const {name} = userService.getUserById(socket.id);
-      // console.log(name);
-      socket.broadcast.emit('message', {
+      const {name} = userService[socket.room].getUserById(socket.id);
+     console.log("Name:"+name+" RoomID: "+socket.room);
+      io.to(socket.room).emit('message', {
           text: message.text,
           from: name
       });
@@ -149,19 +128,11 @@ io.on('connection', socket => {
 
   socket.on('getUsers', () => {
       io.emit('update', {
-          users: userService.getAllUsers()
+          users: userService[socket.room].getAllUsers()
       });
   });
 });
 
-// server.listen(app.get('port'), () => {
-//   console.log('listening on ', app.get('port'));
-// });
-
-/*server.listen(3001, function(){
-  console.log('listening on *:3001');
-}); */
 
 
-//server.listen(3001); 
 module.exports = app;
