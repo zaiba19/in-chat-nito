@@ -6,6 +6,7 @@ const UsersList = props => (
     <div className="Users">
         <div className="UsersOnline">
             {props.users.length } people online
+            
         </div>
         <ul className="UsersList">
             {

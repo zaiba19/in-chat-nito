@@ -20,16 +20,20 @@ class App extends React.Component {
     this.state = {
       name: undefined,
       activeChat: false,
+      courseID:0,
       users: [],
       courses: [],
       messages: [], 
       text: '', 
       room: ''
+
     }; 
     this.onDisconnectStatus = '';
   }
 
   componentDidMount(){
+   
+    
     socket.on('message', message => this.messageReceive(message));
     socket.on('update', ({users}) => this.chatUpdate(users));
   }
@@ -62,9 +66,17 @@ class App extends React.Component {
     // join a room
     const room = classID;
     socket.emit('join room', room);
+  
     this.setState({ room });
     console.log("room " + room + " was clicked");
+
+   // console.log("Loading messages....");
+  
+  
+    
 }
+
+
 
   // --- LOGIN FUNCTION ---
   getUsername = async(event) => {
@@ -164,9 +176,17 @@ logOut = (e) => {
 
 switchToChat = (w) => {
   //w.preventDefault();
+  //console.log(JSON.stringify(course));
   this.setState({
     activeChat : true,
+    
   })
+ 
+  //socket.emit('join',course.courseID , this.state.name);
+ //this.handleUserSubmit(this.set.name);
+  //console.log(this.state.name);
+  
+ // console.log(courseID);
 }
 
 // -- --- RENDERING ---
@@ -175,6 +195,7 @@ switchToChat = (w) => {
 // render() {
 //   return this.state.name === undefined ? this.renderHomePage() : this.renderChat();
 // }
+
 
 renderHomePage(){
   return(
@@ -187,20 +208,25 @@ renderHomePage(){
 renderChat() {
   return (
     <div>
-      <h4>Chat Page</h4>
+      <h4>Chat Page </h4>
       <h2>Room {this.state.room}</h2>
     <Logout logOut={this.logOut}/>
       {/* <UsersList
         users={this.state.users}
         name = {this.state.name}
+
         /> */}
+
     <div className = "MessageWrapper">
       <MessageList
+
           messages={this.state.messages}
           name = {this.state.name}
           last = {this.state.messages[this.state.messages.length-2]}
+          
       />
       <MessageForm
+
           onMessageSubmit={message => this.handleMessageSubmit(message)}
           name={this.state.name}
       />
@@ -210,11 +236,11 @@ renderChat() {
 }
 
 renderCoursePage() {
-  // console.log(this.state)
+  
   return (
     <div>  
     <Logout logOut={this.logOut}/>
-    <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick}/>
+    <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick} />
     </div>
   );
 }
