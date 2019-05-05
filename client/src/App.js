@@ -4,7 +4,7 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
-import BackToCourses from "./components/BackToCourses"
+import ChatNav from "./components/ChatNav"
 import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
 import UsersList from "./components/UsersList.jsx";
@@ -212,8 +212,8 @@ renderChat() {
     <div>
       <h4>Chat Page </h4>
       <h2>Room {this.state.room}</h2>
-      <Logout logOut={this.logOut}/>
-      <BackToCourses backToCourses={this.backToCourses}/>
+      {/* <Logout logOut={this.logOut}/> */}
+      <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
       {/* <UsersList
         users={this.state.users}
         name = {this.state.name}
