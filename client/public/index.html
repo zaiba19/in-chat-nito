@@ -14,7 +14,7 @@
     padding: 20px;
     overflow: auto;
 }
-    
+
    html, body {
       background: #92dcd1;
       width: 100%;
@@ -22,15 +22,15 @@
       margin: 0;
       padding: 0;
     }
-    
+
     main {
       width: calc(100% - 20px);
       max-width: 500px;
       margin: 0 auto;
       font-family: Helvetica, Arial, Sans, sans-serif;
     }
-    
-    
+
+
     .ChatMessage {
       content: '';
       width: 100%;
@@ -38,11 +38,11 @@
       background: white;
       padding: 5px 10px;
     }
-    
+
     .chat message {
       margin: 0 0 5px 0;
     }
-    
+
     input, button {
       width: 100%;
       font: inherit;
@@ -51,12 +51,12 @@
       margin-top: 10px;
       padding: 5px 10px;
     }
-    
+
     button:hover {
       cursor: pointer;
       background: #ddd;
     }
-    
+
     @media all and (min-width: 500px) {
       .chat {
         height: calc(100vh - 140px);
@@ -68,7 +68,7 @@
         float: right;
         width: 150px;
       }
-    }  
+    }
 
     .Cloud {
     padding: 10px 25px;
@@ -89,6 +89,8 @@
     color: white;
 }
         </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
       </head>
   <body>
     <div id="root"></div>
@@ -97,26 +99,26 @@
         <header>
           <h1>In-Chat-Nido</h1>
         </header>
-      
-      
+
+
         <ul id="messages"></ul>
         <form action="">
           <input id="m" autocomplete="off" /><button>Send</button>
-        </form> 
+        </form>
       </main> -->
-  
+
       <!-- <script src="/socket.io/socket.io.js"></script>
       <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
       <script>
           $(function () {
-            //instantiates io 
+            //instantiates io
             var socket = io();
-            //created an event 
+            //created an event
             $('form').submit(function(e){
             e.preventDefault(); // prevents page reloading
-            //when user sends message i.e '#m', server gets it as chat message event 
+            //when user sends message i.e '#m', server gets it as chat message event
             socket.emit('chat message', $('#m').val());
-            //m is message 
+            //m is message
             $('#m').val('');
             return false;
         });
@@ -125,6 +127,6 @@
         });
       });
         </script> -->
-  
+
  </body>
-</html> 
+</html>
