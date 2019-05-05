@@ -4,6 +4,7 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import BackToCourses from "./components/BackToCourses"
 import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
 import UsersList from "./components/UsersList.jsx";
@@ -32,8 +33,6 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-   
-    
     socket.on('message', message => this.messageReceive(message));
     socket.on('update', ({users}) => this.chatUpdate(users));
   }
@@ -70,10 +69,7 @@ class App extends React.Component {
     this.setState({ room });
     console.log("room " + room + " was clicked");
 
-   // console.log("Loading messages....");
-  
-  
-    
+   // console.log("Loading messages...."); 
 }
 
 
@@ -174,6 +170,12 @@ logOut = (e) => {
   })
 }
 
+backToCourses = (e) => {
+    this.setState({
+        activeChat : false,
+    });
+}
+
 switchToChat = (w) => {
   //w.preventDefault();
   //console.log(JSON.stringify(course));
@@ -210,11 +212,11 @@ renderChat() {
     <div>
       <h4>Chat Page </h4>
       <h2>Room {this.state.room}</h2>
-    <Logout logOut={this.logOut}/>
+      <Logout logOut={this.logOut}/>
+      <BackToCourses backToCourses={this.backToCourses}/>
       {/* <UsersList
         users={this.state.users}
         name = {this.state.name}
-
         /> */}
 
     <div className = "MessageWrapper">
@@ -236,7 +238,6 @@ renderChat() {
 }
 
 renderCoursePage() {
-  
   return (
     <div>
     <Logout logOut={this.logOut}/>

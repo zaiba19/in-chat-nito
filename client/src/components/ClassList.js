@@ -50,7 +50,7 @@ let styles = {
 function ClassList(props) { 
 	return (
 		 <div  >
-			<h2>Here are the courses you are enrolled in: </h2>
+			<h4>Here are the courses you are enrolled in: </h4>
 			<div className = "courses_sec">
 				{props.courses.map(course=>{
 					return <Button className="courses_btn" onClick={() => { props.switchToChat(); props.handleRoomClick(course.courseID) }} key={course.courseID} >{course.courseName}</Button>

@@ -79,9 +79,9 @@ app.use(function(err, req, res, next) {
 
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/chat', function(req, res){
-    res.sendFile(__dirname + '/client/public/index.html');
-  });
+// app.get('/chat', function(req, res){
+//     res.sendFile(__dirname + '/client/public/index.html');
+//   });
 
 
 
