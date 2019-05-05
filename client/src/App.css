@@ -15,7 +15,7 @@
 body {
   background: linear-gradient(to right, #E3761B, #FFAF1C);
   /*background: #E3761B;*/
-  background: #81d7cc;
+  background: #FBB066;
 }
 
 
@@ -105,7 +105,7 @@ button:active {
   letter-spacing: 1px;
   font-size: 20px;
   cursor: pointer;
-  background-color: #92dcd1;
+  background-color: #FBB066;
   color: #fff;
   font-weight: 100;
   justify-content: right;
