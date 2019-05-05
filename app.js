@@ -73,48 +73,13 @@ app.use(function(err, req, res, next) {
   console.log(err);
 });
 
-//module.exports = app;
-
-// SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//express initializes app to be a function handler 
-// var app = require('express')();
-
-// //app is supplied an HTTP server 
-// var http = require('http').Server(app);
-
-// //passing http server to socket (handles the client)
-// var io = require('socket.io')(http);
-
-//using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-// app.get('/chat', function(req, res){
-//     res.sendFile(__dirname + '/client/public/index.html');
-//   });
-
-  //app.use(express.static(path.join(__dirname, '/client/public/index.html')));
-
-// listens on the connection event for incoming sockets and sends it to everyone on the chat including sender
-// io.on('connection', function(socket){
-//     socket.on('chat message', function(msg){
-//     io.emit('chat message', msg); 
-//   });
-// }); 
-
-//to make the http server listen on port 3000 
-// http.listen(3001, function(){
-//   console.log('listening on *:3001');
-// });
-
-
-
-//var app = require('express')();  
-
 
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
   });
+
 
 
 io.on('connection', socket => {
@@ -128,9 +93,6 @@ io.on('connection', socket => {
       });
   });
 
-//need a factory to create a singleton 
-
-
   socket.on('disconnect', () => {
       userService.removeUser(socket.id);
       socket.broadcast.emit('update', {
@@ -141,10 +103,13 @@ io.on('connection', socket => {
   socket.on('message', message => {
       const {name} = userService.getUserById(socket.id);
       // console.log(name);
-      socket.broadcast.emit('message', {
+      //socket.to(room).broadcast.emit('chat message', message);
+      socket.to(room).broadcast.emit('message', {
           text: message.text,
           from: name
       });
+      console.log('room '+ room + ' got message', message);
+      //io.to(room).emit('chat message', message);
   });
 
   socket.on('getUsers', () => {
@@ -152,16 +117,15 @@ io.on('connection', socket => {
           users: userService.getAllUsers()
       });
   });
+
+  let room; // capture the room in our closure
+  socket.on('join room', (num) => {
+    console.log(num);
+    room = `room${num}`;
+    socket.join(room);
+  });
 });
 
-// server.listen(app.get('port'), () => {
-//   console.log('listening on ', app.get('port'));
-// });
-
-/*server.listen(3001, function(){
-  console.log('listening on *:3001');
-}); */
 
 
-//server.listen(3001); 
 module.exports = app;
