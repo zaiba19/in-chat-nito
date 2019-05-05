@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import styles from '../App.css';
+import { Socket } from 'dgram';
 
 const Message = props => (
     <div className={"Message" + (props.from === props.name ? ' ' + "MessageRight" : '')}>
@@ -25,6 +26,9 @@ class MessageList extends React.Component {
     // }
 
     //scroll only if user was already at the bottom of messages list
+    loadMessages(){
+        Socket.emit('load messages', )
+    }
     componentWillUpdate() {
         const node = ReactDOM.findDOMNode(this);
         this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;

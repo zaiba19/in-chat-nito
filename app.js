@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db= require("./db.js"); 
+var mysql = require('mysql');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -53,7 +55,6 @@ app.get('/*',function(req, res, next) {
 });
 
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -77,62 +78,106 @@ app.use(function(err, req, res, next) {
 
 
 
-// SOCKET CODE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
 app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
   });
 
 
+
 io.on('connection', socket => {
-  socket.on('join', (courseID , name) => {
-    socket.room=courseID;
+  socket.on('join', (name) => {
     const temp =new UsersService();
-    temp.room=socket.room;
-    console.log(temp.room);
-      userService['room']=temp ;
+    //temp.room=socket.room;
+    //console.log(temp.room);
+     // userService['room']=temp ;
       //userService[socket.room]= new UsersService();
-      userService[socket.room].addUser({
+      userService.addUser({
           id: socket.id,
           name
       });
        
-      socket.join(courseID);
-       console.log("Name: "+ name+" Room: " +socket.room);
+     
+       //console.log("Name: "+ name+" Room: " +socket.room);
 
       io.emit('update', {
-          users: userService[socket.room].getAllUsers()
+          users: userService.getAllUsers()
       });
   });
 
-//need a factory to create a singleton 
-
-
   socket.on('disconnect', () => {
-      userService[socket.room].removeUser(socket.id);
+      userService.removeUser(socket.id);
       io.to(socket.room).emit('update', {
-          users: userService[socket.room].getAllUsers()
+          users: userService.getAllUsers()
       });
   });
 
   socket.on('message', message => {
-      const {name} = userService[socket.room].getUserById(socket.id);
-     console.log("Name:"+name+" RoomID: "+socket.room);
-      io.to(socket.room).emit('message', {
+    
+    var time=Math.round(new Date().getTime()/1000);
+    console.log(time);
+    
+      const {name} = userService.getUserById(socket.id);
+        
+    //Inputs message into db. 
+      let input = [ room,message.text,name,time  ];
+      db.query( 'INSERT INTO chat_table(chatRoom,message,userName,msgTime) VALUES (?,?,?,?)',input,function(err,rows){
+        if(err){
+          console.log("Could not input into db.  "+ err);
+        } else{
+          console.log(JSON.stringify(rows));
+          console.log("Message in DB");
+        }
+        
+      }); 
+
+      //Broadcasts message to room
+      socket.to(room).broadcast.emit('message', {
           text: message.text,
           from: name
       });
+
+     console.log('room :'+ room + ' got message', message);
   });
+
 
   socket.on('getUsers', () => {
       io.emit('update', {
-          users: userService[socket.room].getAllUsers()
+          users: userService.getAllUsers()
       });
   });
-});
 
+
+  let room; // capture the room in our closure
+  socket.on('join room', (num) => {
+    console.log(num);
+    room = `room${num}`;
+    socket.join(room);
+
+    //Looks for previous messages
+    db.query("SELECT * FROM chat_table WHERE chatRoom = ? ORDER BY msgTime DESC LIMIT 20 ",room, function(err,rows){
+      if(err){
+        console.log("error: ",err);
+      } else{
+        console.log("Inside JOIN ROOM")
+        console.log( rows);
+        
+       // table = rows;
+       for(var row in rows)
+        {
+        //  console.log("INSIDE JOIN ROOM THis is row : " + rows[row].message);
+          socket.emit('message', {
+            text: rows[row].message,
+            from: rows[row].userName
+          });
+
+        } 
+   }
+    });
+
+  });
+
+});
 
 
 module.exports = app;

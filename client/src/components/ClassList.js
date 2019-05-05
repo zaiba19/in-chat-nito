@@ -49,11 +49,11 @@ let styles = {
 //displays courses from "/courses"
 function ClassList(props) { 
 	return (
-		 <div>
+		 <div  >
 			<h2>Here are the courses you are enrolled in: </h2>
 			<div className = "courses_sec">
 				{props.courses.map(course=>{
-					return <Button className="courses_btn"  onClick={() => {  props.switchToChat(course) }} style={styles}  key={course.id}  >{course.courseName}</Button>
+					return <Button className="courses_btn" onClick={() => { props.switchToChat(); props.handleRoomClick(course.courseID) }} key={course.courseID} >{course.courseName}</Button>
 				})}
 			</div>
 		 </div>

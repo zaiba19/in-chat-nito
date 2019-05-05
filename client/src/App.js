@@ -25,12 +25,15 @@ class App extends React.Component {
       courses: [],
       messages: [], 
       text: '', 
-     
+      room: ''
+
     }; 
     this.onDisconnectStatus = '';
   }
 
   componentDidMount(){
+   
+    
     socket.on('message', message => this.messageReceive(message));
     socket.on('update', ({users}) => this.chatUpdate(users));
   }
@@ -47,7 +50,7 @@ class App extends React.Component {
   handleUserSubmit(name) {
     if(name) {
         this.setState({name});
-       // socket.emit('join', name);
+        socket.emit('join', name);
     }
 }
 
@@ -59,7 +62,23 @@ class App extends React.Component {
     }
   }
 
-  // FUNCTION FOR LOGIN BUTTON -- NEEDS MODIFICATION
+  handleRoomClick = (classID) => {
+    // join a room
+    const room = classID;
+    socket.emit('join room', room);
+  
+    this.setState({ room });
+    console.log("room " + room + " was clicked");
+
+   // console.log("Loading messages....");
+  
+  
+    
+}
+
+
+
+  // --- LOGIN FUNCTION ---
   getUsername = async(event) => {
     //this prevents the page from reloading when the button is clicked
     event.preventDefault();
@@ -87,9 +106,6 @@ class App extends React.Component {
         // setting the state causes the page to be rerendered 
         this.setState({ name : existing_username })
         this.handleUserSubmit(existing_username);
-        //this.onDisconnectStatus(); 
-
-        console.log(this.state.users);
 
         // fetch list of courses from backend route
         fetch('/courses')
@@ -101,7 +117,7 @@ class App extends React.Component {
   }
 
 
-// FUNCTION FOR SIGNUP BUTTON
+// --- SIGN UP FUNCTION ---
 createUsername = async(u) => {
   //this prevents the page from reloading when the button is clicked
   u.preventDefault();
@@ -137,6 +153,7 @@ createUsername = async(u) => {
 
          // creates username, store new_username in state + fetch courses -> redirects to courses page
         this.setState({ name : new_username })
+        this.handleUserSubmit(new_username);
 
         
       }
@@ -144,16 +161,6 @@ createUsername = async(u) => {
 
   }
 
-
-
-//THIS IS FOR USERS -- via users route in backend
-// NOTE : componentDidMount() is invoked immediately after a component is mounted
-/*  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
-  } */
- 
 logOut = (e) => {
   socket.on('disconnect', () => { 
     this.setState({
@@ -167,55 +174,59 @@ logOut = (e) => {
   })
 }
 
-switchToChat = (course) => {
+switchToChat = (w) => {
   //w.preventDefault();
   //console.log(JSON.stringify(course));
   this.setState({
-    courseID:course.courseID,
     activeChat : true,
     
   })
  
-  socket.emit('join',course.courseID , this.state.name);
+  //socket.emit('join',course.courseID , this.state.name);
  //this.handleUserSubmit(this.set.name);
-  console.log(this.state.name);
+  //console.log(this.state.name);
   
  // console.log(courseID);
 }
 
+// -- --- RENDERING ---
 
 // let result = condition ? value1 : value2;
 // render() {
 //   return this.state.name === undefined ? this.renderHomePage() : this.renderChat();
 // }
 
+
 renderHomePage(){
   return(
     <div>
-  <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-  
-      </div>
+      <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+    </div>
   )
 }
 
 renderChat() {
   return (
     <div>
-      <h4>Chat Page</h4>
+      <h4>Chat Page </h4>
+      <h2>Room {this.state.room}</h2>
     <Logout logOut={this.logOut}/>
-      <UsersList
+      {/* <UsersList
         users={this.state.users}
         name = {this.state.name}
-        />
-  
+
+        /> */}
+
     <div className = "MessageWrapper">
       <MessageList
+
           messages={this.state.messages}
           name = {this.state.name}
           last = {this.state.messages[this.state.messages.length-2]}
           
       />
       <MessageForm
+
           onMessageSubmit={message => this.handleMessageSubmit(message)}
           name={this.state.name}
       />
@@ -229,7 +240,7 @@ renderCoursePage() {
   return (
     <div>  
     <Logout logOut={this.logOut}/>
-    <ClassList switchToChat={this.switchToChat} courses={this.state.courses}/>
+    <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick} />
     </div>
   );
 }
@@ -243,49 +254,6 @@ render(){
     return this.renderChat()
 }
 
+}
 
-
-
-
-
-  //  render() {
-  //   if(this.state.name === undefined)
-  //     return (
-  //        <div className="wrapper">
-  //       <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
-  //       {/* <Chat/> */}
-  //       </div>
-
-
-  //       );
-  //   else
-  //     return (
-  //     <div>
-  //         <Logout logOut={this.logOut}/>
-  //         <ClassList jinfo={this.state.users} courses={this.state.courses}/>
-  //     </div>
-  //     );
-  // }
-} 
-//    render() {    
-//      return this.state.name !== '' ? this.renderLayout() : this.renderUserForm();
-//   }
-
-
-// renderLayout(){
-//   return(
-//     <div className={styles.MessageWrapper}>
-//       <MessageList
-//           messages={this.state.messages}
-//           name = {this.state.name}
-//           last = {this.state.messages[this.state.messages.length-2]}
-//       />
-//       <MessageForm
-//           onMessageSubmit={message => this.handleMessageSubmit(message)}
-//           name={this.state.name}
-//       />
-//     </div>      
-
-//   ); 
-// }
 export default App;
