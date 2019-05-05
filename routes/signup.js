@@ -16,9 +16,7 @@ router.get('/:name', function(req, res, next) {
 	conn.query('INSERT INTO user_table(username) VALUES (?)',username,function(err,rows){
 					
 		if(err){
-			//console.log("error: ",err);
-		    //throw err;//result(err,null);
-			//res.statusCode=404;
+			console.log("error: ",err);
 			res.status(404).send("Username Already Exists.");
 			
 		}
@@ -33,7 +31,8 @@ router.get('/:name', function(req, res, next) {
 						if(rows.length === 0){
 							res.status(404).send("User not found");
 						}else{
-						
+							res.cookie('userID', (rows[0].userID).toString());
+           	  res.cookie('username',(rows[0].username).toString());
 							//res.status(200).send("New User Created");
 							console.log(rows[0]);
 							//console.log(rows[0].userID); //Outputs user ID
@@ -48,7 +47,7 @@ router.get('/:name', function(req, res, next) {
 							//Query to insert defualt courses with userID.
 							conn.query(`INSERT INTO assign_table(userID,courseID) VALUES ? `,[defaultCourses],function(error,result){
 							if(error){
-									console.log(error);
+									console.log("Error:" + error);
 									res.status(404).send("Error: Could not enter default courses");
 								}else{
 
@@ -57,10 +56,6 @@ router.get('/:name', function(req, res, next) {
 								
 								
 							 }); 
-							//res.status(200).send(rows[0]);
-							
-							
-							//((rows[0].userID).toString());
 						
 							
 						}
