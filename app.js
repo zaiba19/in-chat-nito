@@ -14,12 +14,12 @@ var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
 
-
+.listen(process.env.PORT || 5000)
 
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server); 
-
+const PORT = process.env.PORT|| 3001;
 
 const UsersService = require('./UsersService')
 const userService = new UsersService(); 
@@ -31,7 +31,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 
-server.listen(3001, function(){
+server.listen(PORT, function(){
   console.log('listening on *:3001');
 });
 
