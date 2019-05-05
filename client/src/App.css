@@ -108,7 +108,7 @@ button:active {
   background-color: #FBB066;
   color: #fff;
   font-weight: 100;
-  justify-content: right;
+  /* justify-content: right; */
   position: absolute;
   top: 0px;
   right: 0px;
