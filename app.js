@@ -79,9 +79,9 @@ app.use(function(err, req, res, next) {
 
 
 //using sendFile to link to our index.html instead of having strings in this file (i.e Hello World)
-app.get('/chat', function(req, res){
+/*app.get('/chat', function(req, res){
     res.sendFile(__dirname + '/client/public/index.html');
-  });
+  }); */
 
 
 
@@ -155,7 +155,7 @@ io.on('connection', socket => {
     socket.join(room);
 
     //Looks for previous messages
-    db.query("SELECT * FROM chat_table WHERE chatRoom = ? ORDER BY msgTime DESC LIMIT 20 ",room, function(err,rows){
+    db.query("SELECT * FROM chat_table WHERE chatRoom = ? ORDER BY msgTime ASC LIMIT 20 ",room, function(err,rows){
       if(err){
         console.log("error: ",err);
       } else{
