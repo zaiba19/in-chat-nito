@@ -105,8 +105,8 @@ button:active {
   letter-spacing: 1px;
   font-size: 20px;
   cursor: pointer;
-  background-color: #FBB066;
-  color: #fff;
+  /* background-color: #FBB066; */
+ 
   font-weight: 100;
   /* justify-content: right; */
   position: absolute;
@@ -114,10 +114,17 @@ button:active {
   right: 0px;
 }
 
-/*.todopage {
-  align-content: center;
-  left: 50%;
-}*/
+.navbtn {
+  /* position:absolute;
+   top:0;
+   right:0; */
+   position: relative;
+   float: right;
+   background: transparent;
+   border: none;
+   color: #FFF9EC
+}
+
 
 .list {
   position: fixed;
@@ -245,8 +252,14 @@ body {
     position: fixed;
     top: 50%;
     left: 50%; */
+     /* position: absolute; */
+    /* left: 50%;
+    top: 50%;
+
     margin: auto;
-  width: 50%;
+    width: 60%; */
+
+  
 }
 
 
@@ -276,6 +289,10 @@ body {
 
   margin: auto;
   width: 100%;
+
+  max-height: 50%;
+  overflow-y: scroll;
+  
 }
 
 .Message {
@@ -306,7 +323,7 @@ body {
   border-radius: 20px;
   border-top-right-radius: 0;
   background-color: rgba(159, 157, 147, 0.86);
-  background-color: blue;
+  background-color: #F4B36F;
   color: white;
 }
 
@@ -405,4 +422,10 @@ body {
   font-size: 20px;
   margin-top: 200px;
   margin-left: 40px;
+}
+
+
+.form-container-nav{
+  background-color: #4B314B;
+  width: 60%;
 }

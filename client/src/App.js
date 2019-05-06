@@ -209,30 +209,41 @@ renderHomePage(){
 
 renderChat() {
   return (
-    <div>
-      <h4>Chat Page </h4>
-      <h2>Room {this.state.room}</h2>
-      {/* <Logout logOut={this.logOut}/> */}
-      <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
-      {/* <UsersList
-        users={this.state.users}
-        name = {this.state.name}
-        /> */}
+    <div className="wrapper" >
+      <div className="container">
+        <div className="row">
+          <div className="title">
+          <h4>Chat Page </h4>
+           <h2>Room {this.state.room}</h2>
+           </div>
 
-    <div className = "MessageWrapper">
-      <MessageList
+          <div className="col-xs-5 image-container"></div>
 
-          messages={this.state.messages}
-          name = {this.state.name}
-          last = {this.state.messages[this.state.messages.length-2]}
-          
-      />
-      <MessageForm
+          <div className="col-xs-7 form-container-nav">
+            
+            {/* <Logout logOut={this.logOut}/> */}
+            
+            {/* <UsersList
+              users={this.state.users}
+              name = {this.state.name}
+              /> */}
 
-          onMessageSubmit={message => this.handleMessageSubmit(message)}
-          name={this.state.name}
-      />
-    </div>
+          <div className = "MessageWrapper">
+            <MessageList
+                messages={this.state.messages}
+                name = {this.state.name}
+                last = {this.state.messages[this.state.messages.length-2]}
+                
+            />
+            <MessageForm
+                onMessageSubmit={message => this.handleMessageSubmit(message)}
+                name={this.state.name}
+            />
+          </div>
+          <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
+          </div>
+          </div>
+      </div>
     </div>
   );
 }
