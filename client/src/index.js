@@ -5,11 +5,6 @@ import './index.css';
 import * as serviceWorker from './serviceWorker'; 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-import ClassList from './components/ClassList';
-import HomePage from './components/HomePage';
-import CourseCreate from './components/CourseCreate';
-import JoinCourse from './components/JoinCourse';
-//import Chat from '../../public/Chat';
 
 
 ReactDOM.render(<App />, document.getElementById('root'));
@@ -18,7 +13,3 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
-
-

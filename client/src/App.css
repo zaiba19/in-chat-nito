@@ -179,6 +179,16 @@ p {
 
 .courses_btn {
   width: 100%;
+  border: 0;
+  padding: 8px 20px;
+  border-radius: 2px;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #F4B36F;
+  color: #fff;
+  font-weight: 100;
 }
 
 .login-button{
@@ -400,6 +410,10 @@ body {
   padding-left: 110px;
 }
 
+.form-container h4{
+  color: #FFF9EC;
+}
+
 .classContainer{
   height: 90vh;
   background: #fff;
@@ -408,8 +422,12 @@ body {
   margin: 0 auto;
 }
 
-.form-container h4{
-  color: #FFF9EC;
+.courses-classContainer{
+  background-color: #4B314B;
+  padding-top: 30vh;
+  width: 60%;
+  padding-right: 100px;
+  padding-left: 110px;
 }
 
 .SignUponSubmit{

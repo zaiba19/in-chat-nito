@@ -1,7 +1,6 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 
-
 // used for inline styling below -- specifically for jsx
 let styles = {
     margin: '10px',
