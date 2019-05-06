@@ -50,13 +50,13 @@ class App extends React.Component {
               document.getElementById('login_error').innerHTML = error;
           }
           // user was in chatroom
-          else if(res.username != undefined && res.chatroom !=null) { 
+          else if(res.username != undefined && res.chatroom !=null) {
             this.setState ({
               name: res.username,
               room: res.chatroom,
               activeChat: true,
             }) 
-           socket.emit('join room', this.state.room);
+            
           } 
           else if(res.username != undefined && res.chatroom == null) {
             this.setState ({
@@ -111,7 +111,7 @@ class App extends React.Component {
   handleRoomClick = (classID) => {
     // join a room
     const room = classID;
-    //socket.emit('join room', room);
+    socket.emit('join room', room);
   
     this.setState({ room });
     console.log("room " + this.state.room + " was clicked");

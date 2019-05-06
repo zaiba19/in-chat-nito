@@ -9,14 +9,17 @@ var conn=db;
 
  
 router.post('/', function(req, res, next) {
-	
+	console.log("this is logout");
+	console.log(req.cookies.userID);
+	console.log(req.cookies.username);
 	
 	if(req.cookies.userID && req.cookies.username){
 		
 			res.clearCookie('userID');
 			res.clearCookie('username');
 			res.clearCookie('chatroom');
-		
+			console.log(req.cookies.userID);
+			console.log(req.cookies.username);
 			res.status(200).send("Cookie cleared");
 			//throw new Error('Cookie not cleared');
 	}else{
