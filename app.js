@@ -15,6 +15,8 @@ var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookiesRouter = require('./routes/cookies');
 
+var loadMessages = new Map();
+
 
 const app = require('express')();
 const server = require('http').createServer(app);
@@ -94,21 +96,21 @@ io.on('connection', socket => {
     //console.log(temp.room);
      // userService['room']=temp ;
       //userService[socket.room]= new UsersService();
-    /*  userService.addUser({
+      userService.addUser({
           id: socket.id,
           name
-      }); */
+      });
        
      
        //console.log("Name: "+ name+" Room: " +socket.room);
 
       io.emit('update', {
-         // users: userService.getAllUsers()
+          users: userService.getAllUsers()
       });
   });
 
   socket.on('disconnect', () => {
-      //userService.removeUser(socket.id);
+      userService.removeUser(socket.id);
       
       io.to(socket.room).emit('update', {
           users: userService.getAllUsers()
@@ -120,7 +122,7 @@ io.on('connection', socket => {
     var time=Math.round(new Date().getTime()/1000);
     console.log(time);
     
-     // const {name} = userService.getUserById(socket.id);
+      const {name} = userService.getUserById(socket.id);
         
     //Inputs message into db. 
       let input = [ room,message.text,name,time  ];
@@ -156,7 +158,20 @@ io.on('connection', socket => {
     console.log(num);
     room = `room${num}`;
     socket.join(room);
+    //console.log();
+    if(!loadMessages.has(room))
+    {
+      console.log("Messages for: "+ room+" is null.");
+      loadMessages.set(room,false);
+    }
 
+    if(loadMessages.get(room)==false)
+    {
+      
+      
+      console.log("Messages for: "+ room+" is false so I will enter it.");
+      
+      console.log("The value for "+ room+" is " + loadMessages.get(room) );
       //Looks for previous messages
       db.query("SELECT * FROM chat_table WHERE chatRoom = ? ORDER BY msgTime ASC LIMIT 20 ",room, function(err,rows){
         if(err){
@@ -178,8 +193,8 @@ io.on('connection', socket => {
           
       }
       }); //query end
-    
-   
+      loadMessages.set(room,true);
+    }
    });//End of socket
 
    

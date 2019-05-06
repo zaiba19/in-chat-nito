@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) { //Componentwillmount
 
 	res.status(200).send(JSON.stringify(req.cookies));
 	}
-	
+	res.cookie('username',(rows[0].username).toString());
 
 });
 router.post('/:name', function(req, res, next) { //where join room starts
