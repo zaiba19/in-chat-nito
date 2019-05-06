@@ -10,7 +10,6 @@ var conn=db;
  
 router.get('/', function(req, res, next) {
 	
-	
 	if(req.cookies.userID && req.cookies.username){
 		
 			res.clearCookie('userID');

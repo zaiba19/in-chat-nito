@@ -32,10 +32,52 @@ class App extends React.Component {
     this.onDisconnectStatus = '';
     this.cookiesLoad=this.cookiesLoad.bind(this);
   }
-  componentWillMount(){
-    //const name = document.cookie.username;
-    this.cookiesLoad=this.cookiesLoad;
-  }
+ /* componentWillMount(){
+    var name = document.cookie.username;
+    console.log(document.cookie);
+    this.setState({name});//:document.cookie.username});
+    console.log(this.state.name);
+    //this.cookiesLoad=this.cookiesLoad; 
+    console.log(this.state);
+    if(this.state.name === undefined)
+    {
+      fetch('/cookies', {
+      method:'GET'
+      })
+      .then(res => res.json())/* {
+        res.json(); 
+        console.log(res.json())
+      }) 
+      .then(res => {
+          
+        
+        console.log(res);
+       
+         // console.log(res.username);
+        // console.log(res.status);
+          if(res.username === undefined){
+              let error = "No user found";
+              console.log(error);
+              document.getElementById('login_error').innerHTML = error;
+          }else {
+            // setting the state causes the page to be rerendered
+          //this.setState.name= 
+            //res= res.json();
+            //this.setState.name =res.username;
+            console.log(this.state);
+            this.setState({
+              name: res.username
+            }) 
+           
+
+          } 
+        })//res end
+     } //If statement end
+      //console.log(this.state);
+     
+  }  */
+    
+
   componentDidMount(){
     socket.on('message', message => this.messageReceive(message));
     socket.on('update', ({users}) => this.chatUpdate(users));
@@ -43,8 +85,7 @@ class App extends React.Component {
   }
 
   cookiesLoad=()=>{
-    this.setState({name:document.cookie.username});
-    console.log(this.state.name);
+    
   }
 
   messageReceive(message) {
