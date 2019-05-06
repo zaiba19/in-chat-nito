@@ -158,16 +158,26 @@ createUsername = async(u) => {
   }
 
 logOut = (e) => {
-  socket.on('disconnect', () => {
-    this.setState({
-        users: [],
-        activeChat : false,
-        courses : [],
-        messages: [],
-        text: '',
-        name: undefined
-    });
+  // fetch('/logout'),{
+  //   method: 'GET',
+  // }.then( res => console.log(res.status))
+  //e.preventDefault();
+  fetch('/logout',{
+    method: 'GET'
+  }).then(res => console.log(res.status))
+  .then(stuff => {
+    socket.on('disconnect', () => {
+      this.setState({
+          users: [],
+          activeChat : false,
+          courses : [],
+          messages: [],
+          text: '',
+          name: undefined
+      });
+    })
   })
+  
 }
 
 backToCourses = (e) => {
