@@ -272,6 +272,11 @@ backToCourses = (e) => {
     this.setState({
         activeChat : false,
     });
+    fetch(`/cookies/chatroom`, {
+      method:'DELETE',
+      header: "chatroom"
+      }).then(res => console.log(res.status))
+
 }
 
 switchToChat = (w) => {
