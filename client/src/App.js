@@ -92,7 +92,7 @@ class App extends React.Component {
       // if user does not exists, print error message on screen
       if(res.status === 404){
         //this.setState({ name : existing_username })
-          let error = "Error: no user found";
+          let error = "No user found.";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
         };
@@ -131,7 +131,7 @@ createUsername = async(u) => {
     console.log(res.status)
 
     if(res.status === 404){
-      let message = "Error: Username already exists.";
+      let message = "Username already exists.";
       // if user exists -> print error message
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
@@ -217,7 +217,9 @@ renderChat() {
            <h2>Room {this.state.room}</h2>
            </div>
 
-          <div className="col-xs-5 image-container"></div>
+          <div className="col-xs-5 image-container">
+          <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
+          </div>
 
           <div className="col-xs-7 form-container-nav">
             
@@ -240,7 +242,7 @@ renderChat() {
                 name={this.state.name}
             />
           </div>
-          <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
+          
           </div>
           </div>
       </div>

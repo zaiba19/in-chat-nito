@@ -11,12 +11,10 @@ const ChatNav = props => (
     // </form>
     // </div>
 
-     <div >
-     <form onSubmit = {props.backToCourses}>		
-        <button className='navbtn'>Courses</button>
-        </form>
-    <form onSubmit = {props.logOut}>		
-            <button className='navbtn'>Logout</button>
+     <div className='navbtn' >
+     <form >		
+        <button className='navbtn' onClick = {props.backToCourses} >Courses</button>
+        <button className='navbtn' onClick = {props.logOut} >Logout</button>
     </form>
         </div> 
 

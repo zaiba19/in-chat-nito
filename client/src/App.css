@@ -1,15 +1,18 @@
-.wrapper {
+
+.wrapper{
+  background: linear-gradient(to right, #FBB066, #DA655C);
   height: 100vh;
-  display: inline;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color:  black;
 }
 
-
-.gr__localhost{
-  /*background: linear-gradient(to right, #E3761B, #FFAF1C);*/
-  /*background: black;*/
+.container{
+  height: 90vh;
+  background: #fff;
+  box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
+  width: 80%;
+  margin: 0 auto;
 }
 
 body {
@@ -118,11 +121,13 @@ button:active {
   /* position:absolute;
    top:0;
    right:0; */
-   position: relative;
-   float: right;
+   /* position: absolute; */
+   /* float: right; */
    background: transparent;
    border: none;
-   color: #FFF9EC
+   color: #FFF9EC;
+   justify-content: right;
+   display: inline-block;
 }
 
 
@@ -252,24 +257,17 @@ body {
 }
 
 .MessageWrapper {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    width: 75vw;
-    flex: 1; */
+    
+    flex: 1;
     background-color: rgb(241, 241, 241);
 
-    /* align-content: center;
-    position: fixed;
-    top: 50%;
-    left: 50%; */
-     /* position: absolute; */
-    /* left: 50%;
+    left: 50%;
     top: 50%;
 
-    margin: auto;
-    width: 60%; */
-
-  
+    max-height: 100%;
+    
 }
 
 
@@ -292,27 +290,20 @@ body {
 
 /* /MessageList/  */
 .MessageList {
-  /* flex: 1;
-  width: 75vw;
-  padding: 20px;
-  overflow: auto; */
-
-  margin: auto;
-  width: 100%;
-
-  max-height: 50%;
-  overflow-y: scroll;
+  height: 80vh;
+  overflow: auto;
   
 }
 
 .Message {
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 20px 20px; 
 }
 
 .MessageRight {
-   align-items: flex-end;
+  align-items: flex-end;
   align-content: right;
 }
 
@@ -322,7 +313,7 @@ body {
   border-radius: 20px;
   background-color: white;
   display: block;
-  margin: 10px 20px 20px 20px;
+  margin: 10px 20px 10px 20px;
   border-top-left-radius: 0;
   box-shadow: 1px 1px 2px #444;
   word-break: break-all;
@@ -374,30 +365,16 @@ body {
   font-weight: 700;
 }
 
-.wrapper{
-  background: linear-gradient(to right, #FBB066, #DA655C);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.container{
-  height: 90vh;
-  background: #fff;
-  box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
-  width: 80%;
-  margin: 0 auto;
-}
 
 .image-container{
   height: 90vh;
   background: url("mars.jpg") center center no-repeat;
   background-size: cover;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  /* align-items: center; */
+  /* justify-content: right; */
+  /* text-align: center; */
   color: whitesmoke;
   width: 40%;
 }
@@ -408,6 +385,7 @@ body {
   width: 60%;
   padding-right: 100px;
   padding-left: 110px;
+  height: 90vh;
 }
 
 .form-container h4{
@@ -446,4 +424,6 @@ body {
 .form-container-nav{
   background-color: #4B314B;
   width: 60%;
+  padding: 10px;
+  height: 90vh;
 }
