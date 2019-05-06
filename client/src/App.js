@@ -4,6 +4,7 @@ import './SignUp.css'
 import HomePage from "./components/HomePage"
 import ClassList from "./components/ClassList"
 import Logout from "./components/Logout"
+import ChatNav from "./components/ChatNav"
 import MessageForm from "./components/MessageForm.jsx";
 import MessageList from "./components/MessageList.jsx";
 import UsersList from "./components/UsersList.jsx";
@@ -78,10 +79,7 @@ class App extends React.Component {
     this.setState({ room });
     console.log("room " + room + " was clicked");
 
-   // console.log("Loading messages....");
-  
-  
-    
+   // console.log("Loading messages...."); 
 }
 
 /*checkCookies = (input)=>{
@@ -133,7 +131,11 @@ class App extends React.Component {
       // if user does not exists, print error message on screen
       if(res.status === 404){
         //this.setState({ name : existing_username })
+<<<<<<< HEAD
           let error = "No user found";
+=======
+          let error = "No user found.";
+>>>>>>> 1f67c574a9f9bd4c220be2bd9e1340c0f94f65c2
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
         }; 
@@ -211,6 +213,12 @@ logOut = (e) => {
   })
 }
 
+backToCourses = (e) => {
+    this.setState({
+        activeChat : false,
+    });
+}
+
 switchToChat = (w) => {
   //w.preventDefault();
   //console.log(JSON.stringify(course));
@@ -246,38 +254,50 @@ renderHomePage(){
 
 renderChat() {
   return (
-    <div>
-      <h4>Chat Page </h4>
-      <h2>Room {this.state.room}</h2>
-    <Logout logOut={this.logOut}/>
-      {/* <UsersList
-        users={this.state.users}
-        name = {this.state.name}
+    <div className="wrapper" >
+      <div className="container">
+        <div className="row">
+          <div className="title">
+          <h4>Chat Page </h4>
+           <h2>Room {this.state.room}</h2>
+           </div>
 
-        /> */}
+          <div className="col-xs-5 image-container">
+          <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
+          </div>
 
-    <div className = "MessageWrapper">
-      <MessageList
+          <div className="col-xs-7 form-container-nav">
+            
+            {/* <Logout logOut={this.logOut}/> */}
+            
+            {/* <UsersList
+              users={this.state.users}
+              name = {this.state.name}
+              /> */}
 
-          messages={this.state.messages}
-          name = {this.state.name}
-          last = {this.state.messages[this.state.messages.length-2]}
+          <div className = "MessageWrapper">
+            <MessageList
+                messages={this.state.messages}
+                name = {this.state.name}
+                last = {this.state.messages[this.state.messages.length-2]}
+                
+            />
+            <MessageForm
+                onMessageSubmit={message => this.handleMessageSubmit(message)}
+                name={this.state.name}
+            />
+          </div>
           
-      />
-      <MessageForm
-
-          onMessageSubmit={message => this.handleMessageSubmit(message)}
-          name={this.state.name}
-      />
-    </div>
+          </div>
+          </div>
+      </div>
     </div>
   );
 }
 
 renderCoursePage() {
-  
   return (
-    <div>
+    <div className = "wrapper">
     <Logout logOut={this.logOut}/>
     <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick} />
     </div>

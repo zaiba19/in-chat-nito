@@ -156,6 +156,7 @@ io.on('connection', socket => {
     console.log(num);
     room = `room${num}`;
     socket.join(room);
+    
     if(loadMessages.get(room)==null)
     {
       loadMessages.set(room,false);
