@@ -14,7 +14,7 @@ var loginRouter = require('./routes/login');
 var coursesRouter = require('./routes/courses');
 var logoutRouter = require('./routes/logout');
 var cookieRouter = require('./routes/cookie');
-var chatRouter = require('./routes/chat');
+
 var loadMessages = new Map();
 
 
@@ -51,7 +51,7 @@ app.use('/login',loginRouter);
 app.use('/courses',coursesRouter);
 app.use('/logout',logoutRouter);
 app.use('/cookies',cookieRouter);
-app.use('/chat',chatRouter);
+
 
 app.get('/*',function(req, res, next) {
 	res.sendFile(path.join(__dirname,'client','build','index.html'));
