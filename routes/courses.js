@@ -26,11 +26,11 @@ var conn=db;
 // 	}]);
 // }); 
 
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
-	var userID =req.cookies.userID; //req.cookie.userID;
-	console.log(userID);
 	
+	console.log("This is the userID: "+ req.cookies.userID);
+	var userID =req.cookies.userID; //req.cookie.userID;
 	//Looks for all courses user is assigned to
 	conn.query("SELECT assign_table.courseID, course_table.courseID ,course_table.courseName FROM assign_table RIGHT JOIN course_table ON assign_table.courseID = course_table.courseID WHERE assign_table.userID = ?",userID, function(err,rows){
 		if(err){

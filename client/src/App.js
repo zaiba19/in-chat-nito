@@ -21,7 +21,6 @@ class App extends React.Component {
     this.state = {
       name: undefined,
       activeChat: false,
-      courseID:0,
       users: [],
       courses: [],
       messages: [],
@@ -30,52 +29,48 @@ class App extends React.Component {
 
     }; 
     this.onDisconnectStatus = '';
-    this.cookiesLoad=this.cookiesLoad.bind(this);
   }
- /* componentWillMount(){
-    var name = document.cookie.username;
-    console.log(document.cookie);
-    this.setState({name});//:document.cookie.username});
-    console.log(this.state.name);
-    //this.cookiesLoad=this.cookiesLoad; 
-    console.log(this.state);
+  componentWillMount(){
+   
     if(this.state.name === undefined)
     {
       fetch('/cookies', {
       method:'GET'
       })
-      .then(res => res.json())/* {
-        res.json(); 
-        console.log(res.json())
-      }) 
+      .then(res => res.json())
       .then(res => {
           
         
-        console.log(res);
+      //  console.log(res);
        
-         // console.log(res.username);
+          console.log(res.username);
         // console.log(res.status);
           if(res.username === undefined){
               let error = "No user found";
               console.log(error);
               document.getElementById('login_error').innerHTML = error;
           }else {
-            // setting the state causes the page to be rerendered
-          //this.setState.name= 
-            //res= res.json();
-            //this.setState.name =res.username;
-            console.log(this.state);
+
+            
             this.setState({
               name: res.username
             }) 
-           
+            console.log(this.state);
+            console.log(res.username);
 
           } 
         })//res end
      } //If statement end
       //console.log(this.state);
+
+      fetch('/courses',{
+        method:'POST'
+      })
+      .then(res => res.json())
+      .then(courses => this.setState({ courses }))
+      .then(test => console.log(this.state.courses))
      
-  }  */
+  }  
     
 
   componentDidMount(){
@@ -84,9 +79,7 @@ class App extends React.Component {
     //console.log(document.cookie);
   }
 
-  cookiesLoad=()=>{
-    
-  }
+  
 
   messageReceive(message) {
     const messages = [...this.state.messages, message];
@@ -185,7 +178,9 @@ class App extends React.Component {
         this.handleUserSubmit(existing_username);
 
         // fetch list of courses from backend route
-        fetch('/courses')
+        fetch('/courses',{
+          method:'POST'
+        })
         .then(res => res.json())
         .then(courses => this.setState({ courses }))
         .then(test => console.log(this.state.courses))
@@ -223,7 +218,9 @@ createUsername = async(u) => {
       let message = "User has been created";
 
       // fetch list of courses from backend route
-      fetch('/courses')
+      fetch('/courses',{
+        method:'POST'
+      })
       .then(res => res.json())
       .then(courses => this.setState({ courses }))
       .then(test => console.log(this.state.courses))
@@ -241,7 +238,7 @@ createUsername = async(u) => {
 logOut = (e) => {
   e.preventDefault();
   fetch(`/logout`,{
-    method: 'GET'
+    method: 'POST'
   }).then(res => {
     this.setState({
       name: undefined,
