@@ -30,6 +30,7 @@ class App extends React.Component {
     }; 
     this.onDisconnectStatus = '';
   }
+
   componentWillMount(){
    
     if(this.state.name === undefined)
@@ -39,25 +40,30 @@ class App extends React.Component {
       })
       .then(res => res.json())
       .then(res => {
-          
         
-      //  console.log(res);
+      console.log(res);
        
           console.log(res.username);
-        // console.log(res.status);
           if(res.username === undefined){
               let error = "No user found";
               console.log(error);
               document.getElementById('login_error').innerHTML = error;
-          }else {
-
-            
-            this.setState({
-              name: res.username
+          }
+          // user was in chatroom
+          else if(res.username != undefined && res.chatroom !=null) {
+            this.setState ({
+              name: res.username,
+              room: res.chatroom,
+              activeChat: true,
             }) 
-            console.log(this.state);
-            console.log(res.username);
-
+            
+          } 
+          else if(res.username != undefined && res.chatroom == null) {
+            this.setState ({
+              name: res.username,
+              activeChat: false,
+            }) 
+            
           } 
         })//res end
      } //If statement end
@@ -69,7 +75,6 @@ class App extends React.Component {
       .then(res => res.json())
       .then(courses => this.setState({ courses }))
       .then(test => console.log(this.state.courses))
-     
   }  
     
 
@@ -78,8 +83,6 @@ class App extends React.Component {
     socket.on('update', ({users}) => this.chatUpdate(users));
     //console.log(document.cookie);
   }
-
-  
 
   messageReceive(message) {
     const messages = [...this.state.messages, message];
@@ -111,7 +114,13 @@ class App extends React.Component {
     socket.emit('join room', room);
   
     this.setState({ room });
-    console.log("room " + room + " was clicked");
+    console.log("room " + this.state.room + " was clicked");
+
+    // store room number in cookies
+    fetch(`/cookies/${room}`, {
+      method:'POST',
+      header: room
+      }).then(res => console.log(res.status))
 
    // console.log("Loading messages...."); 
 }
@@ -257,7 +266,6 @@ logOut = (e) => {
       });
     })
   })
-  
 }
 
 backToCourses = (e) => {

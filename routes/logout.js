@@ -17,6 +17,7 @@ router.post('/', function(req, res, next) {
 		
 			res.clearCookie('userID');
 			res.clearCookie('username');
+			res.clearCookie('chatroom');
 			console.log(req.cookies.userID);
 			console.log(req.cookies.username);
 			res.status(200).send("Cookie cleared");
