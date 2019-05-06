@@ -156,20 +156,27 @@ io.on('connection', socket => {
     console.log(num);
     room = `room${num}`;
     socket.join(room);
-    
-    if(loadMessages.get(room)==null)
+    //console.log();
+    if(!loadMessages.has(room))
     {
+      console.log("Messages for: "+ room+" is null.");
       loadMessages.set(room,false);
     }
+
     if(loadMessages.get(room)==false)
     {
+      
+      
+      console.log("Messages for: "+ room+" is false so I will enter it.");
+      
+      console.log("The value for "+ room+" is " + loadMessages.get(room) );
       //Looks for previous messages
       db.query("SELECT * FROM chat_table WHERE chatRoom = ? ORDER BY msgTime ASC LIMIT 20 ",room, function(err,rows){
         if(err){
           console.log("error: ",err);
         } else{
           console.log("Inside JOIN ROOM")
-          console.log( rows);
+         // console.log( rows);
           
         //For every message received from DB
         for(var row in rows)
@@ -181,8 +188,10 @@ io.on('connection', socket => {
             });
 
           }  
+          
       }
       }); //query end
+      loadMessages.set(room,true);
     }
    });//End of socket
 
