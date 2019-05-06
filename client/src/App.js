@@ -239,13 +239,15 @@ createUsername = async(u) => {
   }
 
 logOut = (e) => {
-  // fetch('/logout'),{
-  //   method: 'GET',
-  // }.then( res => console.log(res.status))
-  //e.preventDefault();
-  fetch('/logout',{
+  e.preventDefault();
+  fetch(`/logout`,{
     method: 'GET'
-  }).then(res => console.log(res.status))
+  }).then(res => {
+    this.setState({
+      name: undefined,
+      activeChat: false
+    })
+  })
   .then(stuff => {
     socket.on('disconnect', () => {
       this.setState({
