@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var router = express.Router();
 var db= require('../db.js');
 //var user =require('../control/appControl.js'); //Gets user functions

@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var router = express.Router();
 var db= require("../db.js");
 //var user =require('../control/appControl.js'); //Gets user functions
@@ -28,11 +29,13 @@ router.get('/:name', function(req, res, next) {
         else{
 
             console.log(rows[0]);
-
+           
             //console.log(rows[0].userID); //Outputs user ID
             //Returns userID and username
+            
             res.cookie('userID', (rows[0].userID).toString());
             res.cookie('username',(rows[0].username).toString());
+            res.cookie({maxAge: 1000 * 60 * 60 * 24 * 30 * 12 * 3000, httpOnly:false});
             //console.log(req.cookies);
             res.status(200).send("User Login Succesful");
 
