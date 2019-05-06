@@ -92,7 +92,7 @@ class App extends React.Component {
       // if user does not exists, print error message on screen
       if(res.status === 404){
         //this.setState({ name : existing_username })
-          let error = "Error: no user found";
+          let error = "No user found.";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
         };
@@ -131,7 +131,7 @@ createUsername = async(u) => {
     console.log(res.status)
 
     if(res.status === 404){
-      let message = "Error: Username already exists.";
+      let message = "Username already exists.";
       // if user exists -> print error message
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
@@ -209,30 +209,43 @@ renderHomePage(){
 
 renderChat() {
   return (
-    <div>
-      <h4>Chat Page </h4>
-      <h2>Room {this.state.room}</h2>
-      {/* <Logout logOut={this.logOut}/> */}
-      <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
-      {/* <UsersList
-        users={this.state.users}
-        name = {this.state.name}
-        /> */}
+    <div className="wrapper" >
+      <div className="container">
+        <div className="row">
+          <div className="title">
+          <h4>Chat Page </h4>
+           <h2>Room {this.state.room}</h2>
+           </div>
 
-    <div className = "MessageWrapper">
-      <MessageList
+          <div className="col-xs-5 image-container">
+          <ChatNav logOut={this.logOut} backToCourses={this.backToCourses}/>
+          </div>
 
-          messages={this.state.messages}
-          name = {this.state.name}
-          last = {this.state.messages[this.state.messages.length-2]}
+          <div className="col-xs-7 form-container-nav">
+            
+            {/* <Logout logOut={this.logOut}/> */}
+            
+            {/* <UsersList
+              users={this.state.users}
+              name = {this.state.name}
+              /> */}
+
+          <div className = "MessageWrapper">
+            <MessageList
+                messages={this.state.messages}
+                name = {this.state.name}
+                last = {this.state.messages[this.state.messages.length-2]}
+                
+            />
+            <MessageForm
+                onMessageSubmit={message => this.handleMessageSubmit(message)}
+                name={this.state.name}
+            />
+          </div>
           
-      />
-      <MessageForm
-
-          onMessageSubmit={message => this.handleMessageSubmit(message)}
-          name={this.state.name}
-      />
-    </div>
+          </div>
+          </div>
+      </div>
     </div>
   );
 }

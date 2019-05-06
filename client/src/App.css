@@ -1,15 +1,18 @@
-.wrapper {
+
+.wrapper{
+  background: linear-gradient(to right, #FBB066, #DA655C);
   height: 100vh;
-  display: inline;
+  display: flex;
   justify-content: center;
   align-items: center;
-  background-color:  black;
 }
 
-
-.gr__localhost{
-  /*background: linear-gradient(to right, #E3761B, #FFAF1C);*/
-  /*background: black;*/
+.container{
+  height: 90vh;
+  background: #fff;
+  box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
+  width: 80%;
+  margin: 0 auto;
 }
 
 body {
@@ -106,8 +109,8 @@ button:active {
   letter-spacing: 1px;
   font-size: 20px;
   cursor: pointer;
-  background-color: #FBB066;
-  color: #fff;
+  /* background-color: #FBB066; */
+ 
   font-weight: 100;
   /* justify-content: right; */
   position: absolute;
@@ -115,10 +118,19 @@ button:active {
   right: 0px;
 }
 
-/*.todopage {
-  align-content: center;
-  left: 50%;
-}*/
+.navbtn {
+  /* position:absolute;
+   top:0;
+   right:0; */
+   /* position: absolute; */
+   /* float: right; */
+   background: transparent;
+   border: none;
+   color: #FFF9EC;
+   justify-content: right;
+   display: inline-block;
+}
+
 
 .list {
   position: fixed;
@@ -181,7 +193,7 @@ p {
 }
 
 h2{
-margin-top: -50px; 
+/* /margin-top: -50px;  */
 text-align: center;
 }
 
@@ -274,18 +286,18 @@ body {
 }
 
 .MessageWrapper {
-    /* display: flex;
+    display: flex;
     flex-direction: column;
-    width: 75vw;
-    flex: 1; */
+    
+    flex: 1;
     background-color: rgb(241, 241, 241);
 
-    /* align-content: center;
-    position: fixed;
+    left: 50%;
     top: 50%;
-    left: 50%; */
-    margin: auto;
-  width: 50%;
+
+    max-height: 100%;
+    width: 100%;
+    
 }
 
 
@@ -300,6 +312,7 @@ body {
   padding: 20px;
   border: 0;
   border-top: 1px solid #ccc;
+  width: 100%;
 }
 
 .MessageInput:focus {
@@ -308,23 +321,20 @@ body {
 
 /* /MessageList/  */
 .MessageList {
-  /* flex: 1;
-  width: 75vw;
-  padding: 20px;
-  overflow: auto; */
-
-  margin: auto;
-  width: 100%;
+  height: 85vh;
+  overflow: auto;
+  
 }
 
 .Message {
-   display: flex;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin: 20px 20px; 
 }
 
 .MessageRight {
-   align-items: flex-end;
+  align-items: flex-end;
   align-content: right;
 }
 
@@ -334,7 +344,7 @@ body {
   border-radius: 20px;
   background-color: white;
   display: block;
-  margin: 10px 20px 20px 20px;
+  margin: 10px 20px 10px 20px;
   border-top-left-radius: 0;
   box-shadow: 1px 1px 2px #444;
   word-break: break-all;
@@ -345,7 +355,7 @@ body {
   border-radius: 20px;
   border-top-right-radius: 0;
   background-color: rgba(159, 157, 147, 0.86);
-  background-color: blue;
+  background-color: #F4B36F;
   color: white;
 }
 
@@ -386,30 +396,16 @@ body {
   font-weight: 700;
 }
 
-.wrapper{
-  background: linear-gradient(to right, #FBB066, #DA655C);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.container{
-  height: 90vh;
-  background: #fff;
-  box-shadow: 0px 13px 40px -13px rgba(0,0,0,0.75);
-  width: 80%;
-  margin: 0 auto;
-}
 
 .image-container{
   height: 90vh;
   background: url("mars.jpg") center center no-repeat;
   background-size: cover;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  /* align-items: center; */
+  /* justify-content: right; */
+  /* text-align: center; */
   color: whitesmoke;
   width: 40%;
 }
@@ -420,6 +416,7 @@ body {
   width: 60%;
   padding-right: 100px;
   padding-left: 110px;
+  height: 90vh;
 }
 
 .form-container h4{
@@ -436,4 +433,12 @@ body {
   font-size: 20px;
   margin-top: 200px;
   margin-left: 40px;
+}
+
+
+.form-container-nav{
+  background-color: #4B314B;
+  width: 60%;
+  padding: 10px;
+  height: 90vh;
 }
