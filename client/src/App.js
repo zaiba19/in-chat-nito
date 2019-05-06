@@ -239,7 +239,7 @@ renderChat() {
 
 renderCoursePage() {
   return (
-    <div>
+    <div className = "wrapper">
     <Logout logOut={this.logOut}/>
     <ClassList switchToChat={this.switchToChat} courses={this.state.courses} handleRoomClick={this.handleRoomClick} />
     </div>
