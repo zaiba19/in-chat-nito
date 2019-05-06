@@ -60,16 +60,6 @@ li {
   line-height: 2;
 }
 
-h2 {
-  position: absolute;
-  color: white;
-  font-size: 20px;
-  font-weight: lighter;
-  margin-right: 30px;
-  opacity: 0.9;
-  text-align: center;
-  font-size: 30px;
-}
 
 
 input[type="text"] {
@@ -102,20 +92,20 @@ button:active {
 
 #log-btn {
   border: 0;
-  padding: 8px 10px;
-  margin: 0 2px;
-  border-radius: 2px;
+  background: transparent; 
+  color: white; 
+  /* padding: 8px 10px; */
+  /* margin: 0 2px; */
+  /* border-radius: 2px; */
   font-weight: lighter;
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
-  /* background-color: #FBB066; */
- 
-  font-weight: 100;
-  /* justify-content: right; */
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 50px;
+  left: 290px;
+  justify-content: right;
+  display: inline-block;
 }
 
 .navbtn {
@@ -192,27 +182,31 @@ p {
 
 }
 
-h2{
-/* /margin-top: -50px;  */
-text-align: center;
+.course-title h2 {
+  position: absolute;
+  color: white;
+  font-size: 15px;
+  font-weight: lighter;
+  margin-right: 30px;
+  opacity: 0.9;
+  text-align: center;
+  font-size: 30px;
 }
+
 
 .courses_sec {
   margin: auto;
   width: 50%;
   background-color: #4B314B;
   padding-top: 30vh;
-  width: 60%;
-  padding-top: 50px; 
-  padding-bottom: 50px; 
-  padding-right: 100px;
-  padding-left: 100px;
+  
+  padding: 10px 20px;
 }
 
 .courses_btn {
   border: 0;
   border-radius: 2px;
-  padding: 20px 20px;
+  padding: 10px 20px;
   margin: 10px -12px;
   font-weight: lighter;
   letter-spacing: 2px;
@@ -223,7 +217,12 @@ text-align: center;
   font-weight: 100;
   box-shadow: 0px 13px 40px -13px rgba(12, 12, 12, 0.975);
   width: 100%;
+  text-decoration: none;
+  
+
 }
+
+
 
 .login-button{
   width:280px;
