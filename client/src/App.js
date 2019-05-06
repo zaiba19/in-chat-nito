@@ -29,13 +29,21 @@ class App extends React.Component {
 
     }; 
     this.onDisconnectStatus = '';
+    this.cookiesLoad=this.cookiesLoad.bind(this);
   }
-
+  componentWillMount(){
+    //const name = document.cookie.username;
+    this.cookiesLoad=this.cookiesLoad;
+  }
   componentDidMount(){
-   
-    
     socket.on('message', message => this.messageReceive(message));
     socket.on('update', ({users}) => this.chatUpdate(users));
+    //console.log(document.cookie);
+  }
+
+  cookiesLoad=()=>{
+    this.setState({name:document.cookie.username});
+    console.log(this.state.name);
   }
 
   messageReceive(message) {
@@ -76,7 +84,36 @@ class App extends React.Component {
     
 }
 
+/*checkCookies = (input)=>{
 
+  if(this.state.name === undefined)
+  {
+    fetch('/cookies', {
+    method:'GET'
+    })
+    .then(res => {
+        
+    
+        console.log(res.status)
+        if(res.status === 404){
+            let error = "No user found";
+            document.getElementById('login_error').innerHTML = error;
+          }
+
+        // if cookie is not null set the state to cookie
+        if(res.status === 200){
+          // setting the state causes the page to be rerendered
+        //this.setState.name= 
+          res= res.json();
+          //this.setState.name =res.username;
+          this.setState({
+            name: res.username
+          })
+        
+        }
+      })
+    }
+} */
 
   // --- LOGIN FUNCTION ---
   getUsername = async(event) => {
@@ -96,10 +133,10 @@ class App extends React.Component {
       // if user does not exists, print error message on screen
       if(res.status === 404){
         //this.setState({ name : existing_username })
-          let error = "Error: no user found";
+          let error = "No user found";
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
-        };
+        }; 
 
       // if user exists, store username in state + fetch courses -> redirects to courses page
       if(res.status === 200){
@@ -135,7 +172,7 @@ createUsername = async(u) => {
     console.log(res.status)
 
     if(res.status === 404){
-      let message = "Error: Username already exists.";
+      let message = "Username already exists.";
       // if user exists -> print error message
         // gets element with id 'signup_error" and prints the error message on the screen
         document.getElementById('signup_error').innerHTML = message;
@@ -181,6 +218,8 @@ switchToChat = (w) => {
     activeChat : true,
     
   })
+
+ 
  
   //socket.emit('join',course.courseID , this.state.name);
  //this.handleUserSubmit(this.set.name);
@@ -200,7 +239,7 @@ switchToChat = (w) => {
 renderHomePage(){
   return(
     <div className="wrapper">
-      <HomePage getUsername={this.getUsername} createUsername={this.createUsername}/>
+      <HomePage getUsername={this.getUsername} createUsername={this.createUsername} />
     </div>
   )
 }
@@ -246,6 +285,7 @@ renderCoursePage() {
 }
 
 render(){
+  
   if(this.state.name === undefined && this.state.activeChat === false)
     return this.renderHomePage()
   else if(this.state.name !== undefined && this.state.activeChat === false)

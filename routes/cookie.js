@@ -10,8 +10,14 @@ var conn=db;
  
 router.get('/', function(req, res, next) {
 
-	res.status(200).send(req.cookies);
+	if(req.cookies==null)
+	{
+		console.log("Error"+err);
+		res.status(404).send("No User logged in");
+	} else{
 
+	res.status(200).send(JSON.stringify(req.cookies));
+	}
 	
 
 });
