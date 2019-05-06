@@ -9,7 +9,7 @@ let styles = {
 //displays courses from "/courses"
 function ClassList(props) { 
 	return (
-		 <div  >
+		 <div class = "course-title">
 			<h2>Here are the courses you are enrolled in: </h2>
 			<div className = "courses_sec">
 				{props.courses.map(course=>{
