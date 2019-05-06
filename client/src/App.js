@@ -131,11 +131,8 @@ class App extends React.Component {
       // if user does not exists, print error message on screen
       if(res.status === 404){
         //this.setState({ name : existing_username })
-<<<<<<< HEAD
-          let error = "No user found";
-=======
           let error = "No user found.";
->>>>>>> 1f67c574a9f9bd4c220be2bd9e1340c0f94f65c2
+
           // gets element with id 'login_error" and prints the error on the screen
           document.getElementById('login_error').innerHTML = error;
         }; 
